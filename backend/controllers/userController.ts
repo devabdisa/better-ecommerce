@@ -44,4 +44,39 @@ const createUser = asyncHandler(async (req: Request, res: Response) => {
   });
 });
 
-export { createUser };
+
+
+const loginUser = asyncHandler(async (req: Request, res: Response) => {
+  const { email, password } = req.body as { email: string; password: string };
+
+  if (!email || !password) {
+    res.status(400);
+    throw new Error("Please provide both email and password.");
+  }
+
+  const existingUser: IUser | null = await User.findOne({ email });
+
+  if (!existingUser) {
+    res.status(401); // Unauthorized
+    throw new Error("Invalid email or password.");
+  }
+
+  const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+
+  if (!isPasswordValid) {
+    res.status(401);
+    throw new Error("Invalid email or password.");
+  }
+
+  // If login successful, generate token
+  createToken(res, existingUser._id.toString());
+
+  res.status(200).json({
+    _id: existingUser._id,
+    username: existingUser.username,
+    email: existingUser.email,
+    isAdmin: existingUser.isAdmin,
+  });
+});
+
+export { createUser, loginUser };
