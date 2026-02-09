@@ -44,8 +44,6 @@ const createUser = asyncHandler(async (req: Request, res: Response) => {
   });
 });
 
-
-
 const loginUser = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body as { email: string; password: string };
 
@@ -79,4 +77,12 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
   });
 });
 
-export { createUser, loginUser };
+const logoutCurrentUser = asyncHandler(async (req: Request, res: Response) => {
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+  res.status(200).json({ message: "Logged out successfully" });
+});
+
+export { createUser, loginUser, logoutCurrentUser };
