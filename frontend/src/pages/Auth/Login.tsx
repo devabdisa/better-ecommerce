@@ -116,7 +116,7 @@ const Login: FC = () => {
         </div>
 
         {/* Image Section - styled to look premium */}
-        <div className="md:w-1/2 w-full hidden md:block h-150 relative">
+        <div className=" md:w-1/2 w-full hidden md:block h-150 relative">
           <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent z-10"></div>
           <img
             src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80"

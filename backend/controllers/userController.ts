@@ -7,78 +7,93 @@ import createToken from "../utils/createToken.js";
 interface AuthenticatedRequest extends Request {
   user?: IUser | null;
 }
-const createUser = asyncHandler(async (req: Request, res: Response) => {
-  const { username, email, password } = req.body as {
-    username: string;
-    email: string;
-    password: string;
-  };
 
-  if (!username || !email || !password) {
-    res.status(400);
-    throw new Error("Please fill all the inputs.");
-  }
+interface CreateUserBody {
+  username: string;
+  email: string;
+  password: string;
+}
 
-  const userExists: IUser | null = await User.findOne({ email });
-  if (userExists) {
-    res.status(400);
-    throw new Error("User already exists");
-  }
+const createUser = asyncHandler(
+  async (req: Request<any, any, CreateUserBody>, res: Response) => {
+    const { username, email, password } = req.body;
 
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
+    if (!username || !email || !password) {
+      res.status(400);
+      throw new Error("Please fill all the inputs.");
+    }
 
-  const newUser = new User({
-    username,
-    email,
-    password: hashedPassword,
-  });
+    const userExists: IUser | null = await User.findOne({ email });
+    if (userExists) {
+      res.status(400);
+      throw new Error("User already exists");
+    }
 
-  await newUser.save();
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
-  // Create JWT and set cookie
-  createToken(res, newUser._id.toString());
+    const newUser = new User({
+      username,
+      email,
+      password: hashedPassword,
+    });
 
-  res.status(201).json({
-    _id: newUser._id,
-    username: newUser.username,
-    email: newUser.email,
-    isAdmin: newUser.isAdmin,
-  });
-});
+    await newUser.save();
 
-const loginUser = asyncHandler(async (req: Request, res: Response) => {
-  const { email, password } = req.body as { email: string; password: string };
+    // Create JWT and set cookie
+    createToken(res, newUser._id.toString());
 
-  if (!email || !password) {
-    res.status(400);
-    throw new Error("Please provide both email and password.");
-  }
+    res.status(201).json({
+      _id: newUser._id,
+      username: newUser.username,
+      email: newUser.email,
+      isAdmin: newUser.isAdmin,
+    });
+  },
+);
 
-  const existingUser: IUser | null = await User.findOne({ email });
+interface LoginUserBody {
+  email: string;
+  password: string;
+}
 
-  if (!existingUser) {
-    res.status(401); // Unauthorized
-    throw new Error("Invalid email or password.");
-  }
+const loginUser = asyncHandler(
+  async (req: Request<any, any, LoginUserBody>, res: Response) => {
+    const { email, password } = req.body;
 
-  const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+    if (!email || !password) {
+      res.status(400);
+      throw new Error("Please provide both email and password.");
+    }
 
-  if (!isPasswordValid) {
-    res.status(401);
-    throw new Error("Invalid email or password.");
-  }
+    const existingUser: IUser | null = await User.findOne({ email });
 
-  // If login successful, generate token
-  createToken(res, existingUser._id.toString());
+    if (!existingUser) {
+      res.status(401); // Unauthorized
+      throw new Error("Invalid email or password.");
+    }
 
-  res.status(200).json({
-    _id: existingUser._id,
-    username: existingUser.username,
-    email: existingUser.email,
-    isAdmin: existingUser.isAdmin,
-  });
-});
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      existingUser.password,
+    );
+
+    if (!isPasswordValid) {
+      res.status(401);
+      throw new Error("Invalid email or password.");
+    }
+
+    // If login successful, generate token
+    createToken(res, existingUser._id.toString());
+
+    res.status(200).json({
+      _id: existingUser._id,
+      username: existingUser.username,
+      email: existingUser.email,
+      isAdmin: existingUser.isAdmin,
+    });
+  },
+);
 
 const logoutCurrentUser = asyncHandler(async (req: Request, res: Response) => {
   res.cookie("jwt", "", {
@@ -111,6 +126,12 @@ const getCurrentUserProfile = asyncHandler(
   },
 );
 
+interface UpdateProfileBody {
+  username?: string;
+  email?: string;
+  password?: string;
+}
+
 const updateCurrentUserProfile = asyncHandler(
   async (req: AuthenticatedRequest, res: Response) => {
     const user = await User.findById(req.user?._id);
@@ -120,12 +141,14 @@ const updateCurrentUserProfile = asyncHandler(
       throw new Error("User not found");
     }
 
-    user.username = req.body.username || user.username;
-    user.email = req.body.email || user.email;
+    const { username, email, password } = req.body as UpdateProfileBody;
 
-    if (req.body.password) {
+    user.username = username || user.username;
+    user.email = email || user.email;
+
+    if (password) {
       const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(req.body.password, salt);
+      user.password = await bcrypt.hash(password, salt);
     }
 
     const updatedUser = await user.save();
@@ -167,27 +190,35 @@ const getUserById = asyncHandler(async (req: Request, res: Response) => {
   res.json(user);
 });
 
-const updateUserById = asyncHandler(async (req: Request, res: Response) => {
-  const user = await User.findById(req.params.id);
+interface UpdateUserBody {
+  username?: string;
+  email?: string;
+  isAdmin?: boolean;
+}
 
-  if (!user) {
-    res.status(404);
-    throw new Error("User not found");
-  }
+const updateUserById = asyncHandler(
+  async (req: Request<any, any, UpdateUserBody>, res: Response) => {
+    const user = await User.findById(req.params.id);
 
-  user.username = req.body.username || user.username;
-  user.email = req.body.email || user.email;
-  user.isAdmin = Boolean(req.body.isAdmin);
+    if (!user) {
+      res.status(404);
+      throw new Error("User not found");
+    }
 
-  const updatedUser = await user.save();
+    user.username = req.body.username || user.username;
+    user.email = req.body.email || user.email;
+    user.isAdmin = Boolean(req.body.isAdmin);
 
-  res.json({
-    _id: updatedUser._id,
-    username: updatedUser.username,
-    email: updatedUser.email,
-    isAdmin: updatedUser.isAdmin,
-  });
-});
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      username: updatedUser.username,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  },
+);
 
 export {
   createUser,
