@@ -10,6 +10,25 @@ export interface UserInfo {
   isAdmin: boolean;
 }
 
+/** Represents a create category request */
+export interface CreateCategoryRequest {
+  name: string;
+}
+
+/** Represents a category returned from the API */
+export interface Category {
+  _id: string;
+  name: string;
+}
+
+/** Represents an update category request */
+export interface UpdateCategoryRequest {
+  categoryId: string;
+  updatedCategory: {
+    name: string;
+  };
+}
+
 /** Auth slice state shape */
 export interface AuthState {
   userInfo: UserInfo | null;
