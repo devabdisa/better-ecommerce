@@ -95,7 +95,7 @@ const ProductDetails: FC = () => {
   return (
     <div className="min-h-screen bg-[#0a0a0c] text-white pb-20 overflow-x-hidden">
       <div className="ml-20 pt-8 relative z-10">
-        <div className="flex flex-col lg:flex-row items-stretch gap-12 max-w-400 mx-auto px-6 lg:px-16 mt-8">
+        <div className="flex flex-col lg:flex-row items-stretch gap-12 max-w-[1600px] mx-auto px-6 lg:px-16 mt-8">
           <div className="lg:w-1/2 w-full animate-in fade-in slide-in-from-left duration-700">
             <Link
               to="/"
@@ -240,7 +240,7 @@ const ProductDetails: FC = () => {
           </div>
         </div>
 
-        <div className="mt-20 max-w-400 mx-auto px-6 lg:px-16 animate-in fade-in slide-in-from-bottom duration-700 delay-200">
+        <div className="mt-20 max-w-[1600px] mx-auto px-6 lg:px-16 animate-in fade-in slide-in-from-bottom duration-700 delay-200">
           <div className="p-10 glass rounded-[2.5rem] border border-white/5 bg-[#131316]">
             <ProductTabs
               loadingProductReview={loadingProductReview}
