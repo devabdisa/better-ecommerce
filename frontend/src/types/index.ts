@@ -1,6 +1,62 @@
 // ==========================================
 // Shared TypeScript types for the frontend
 // ==========================================
+/** Auth slice state shape */
+export interface AuthState {
+  userInfo: UserInfo | null;
+}
+
+/** Shipping Address shape */
+export interface ShippingAddress {
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+}
+
+/** Cart Item shape (Product + qty) */
+export interface CartItem extends Omit<
+  Product,
+  "reviews" | "numReviews" | "rating"
+> {
+  qty: number;
+}
+
+/** Cart State shape */
+export interface CartState {
+  cartItems: CartItem[];
+  shippingAddress: ShippingAddress;
+  paymentMethod: string;
+  itemsPrice: string;
+  shippingPrice: string;
+  taxPrice: string;
+  totalPrice: string;
+}
+
+/** Shop State shape */
+export interface ShopState {
+  categories: Category[];
+  products: Product[];
+  checked: string[];
+  radio: number[];
+  brandCheckboxes: Record<string, boolean>;
+  checkedBrands: string[];
+  selectedBrand?: string;
+}
+
+/** Root Redux state – mirrors configureStore reducer map */
+export interface RootState {
+  auth: AuthState;
+  favorites: Product[];
+  cart: CartState;
+  shop: ShopState;
+  // RTK Query api reducer is handled dynamically via apiSlice.reducerPath
+  [key: string]: unknown;
+}
+
+// ==========================================
+// Shared TypeScript types for the frontend
+// ==========================================
 
 /** Represents a user returned from the API */
 export interface UserInfo {
@@ -29,16 +85,23 @@ export interface UpdateCategoryRequest {
   };
 }
 
-/** Auth slice state shape */
-export interface AuthState {
-  userInfo: UserInfo | null;
-}
-
-/** Root Redux state – mirrors configureStore reducer map */
-export interface RootState {
-  auth: AuthState;
-  // RTK Query api reducer is handled dynamically via apiSlice.reducerPath
-  [key: string]: unknown;
+/** Product interface */
+export interface Product {
+  error: any;
+  _id: string;
+  name: string;
+  image: string;
+  brand: string;
+  quantity: number;
+  category: any;
+  description: string;
+  reviews: any[];
+  rating: number;
+  numReviews: number;
+  price: number;
+  countInStock: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 // ---- API request / response types ----
