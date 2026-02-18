@@ -18,6 +18,7 @@ import moment from "moment";
 import HeartIcon from "./HeartIcon";
 // import { addToCart } from "../../redux/features/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { addToCart } from "../../redux/features/cart/cartSlice";
 import type { FC, FormEvent } from "react";
 import type { RootState, ApiError, CartItem } from "../../types";
 import Ratings from "./Ratings";
@@ -66,16 +67,16 @@ const ProductDetails: FC = () => {
     }
   };
 
-  // const addToCartHandler = () => {
-  //   if (product) {
-  //     const cartItem: CartItem = {
-  //       ...product,
-  //       qty,
-  //     };
-  //     dispatch(addToCart(cartItem));
-  //     navigate("/cart");
-  //   }
-  // };
+  const addToCartHandler = () => {
+    if (product) {
+      const cartItem: CartItem = {
+        ...product,
+        qty,
+      };
+      dispatch(addToCart(cartItem));
+      navigate("/cart");
+    }
+  };
 
   if (isLoading) return <Loader />;
 
@@ -236,6 +237,41 @@ const ProductDetails: FC = () => {
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="flex items-center gap-6 flex-wrap mt-8">
+              {product.countInStock > 0 && (
+                <div className="flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/10">
+                  <select
+                    value={qty}
+                    onChange={(e) => setQty(Number(e.target.value))}
+                    className="p-2 w-16 bg-transparent text-white focus:outline-none cursor-pointer appearance-none text-center font-bold text-lg"
+                  >
+                    {[...Array(Math.min(product.countInStock, 10)).keys()].map(
+                      (x) => (
+                        <option
+                          key={x + 1}
+                          value={x + 1}
+                          className="text-black"
+                        >
+                          {x + 1}
+                        </option>
+                      ),
+                    )}
+                  </select>
+                  <span className="text-gray-400 text-sm font-bold pr-2">
+                    QTY
+                  </span>
+                </div>
+              )}
+
+              <button
+                onClick={addToCartHandler}
+                disabled={product.countInStock === 0}
+                className="flex-1 bg-linear-to-r from-blue-600 to-sky-500 text-white py-4 px-8 rounded-xl font-bold uppercase tracking-widest hover:from-blue-500 hover:to-sky-400 transition-all duration-300 transform hover:-translate-y-1 active:scale-95 shadow-lg shadow-blue-900/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-3 group"
+              >
+                <FaShoppingCart className="group-hover:animate-bounce" />
+                {product.countInStock > 0 ? "Add To Cart" : "Sold Out"}
+              </button>
             </div>
           </div>
         </div>

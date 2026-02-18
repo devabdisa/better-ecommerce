@@ -18,6 +18,8 @@ import AllProducts from "./pages/Admin/AllProducts";
 import Home from "./pages/Home";
 import Favorites from "./pages/Products/Favorites";
 import ProductDetails from "./pages/Products/ProductDetails";
+import Cart from "./pages/Cart";
+import Shop from "./pages/Shop";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +31,8 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<Home />} />
       <Route path="/favorite" element={<Favorites />} />
       <Route path="/product/:id" element={<ProductDetails />} />
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/shop" element={<Shop />} />
 
       {/* Registered users */}
       <Route path="" element={<PrivateRoute />}>
