@@ -5,16 +5,16 @@ import { Route, RouterProvider, createRoutesFromElements } from "react-router";
 import { createBrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-
 import PrivateRoute from "./components/PrivateRoute";
-
-// Auth
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import Profile from "./pages/User/Profile";
 import UserList from "./pages/Admin/UserList";
 import AdminRoute from "./pages/Admin/AdminRoute";
 import CategoryList from "./pages/Admin/CategoryList";
+import ProductList from "./pages/Admin/ProductList";
+import ProductUpdate from "./pages/Admin/ProductUpdate";
+import AllProducts from "./pages/Admin/AllProducts";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,6 +30,10 @@ const router = createBrowserRouter(
       <Route path="/admin" element={<AdminRoute />}>
         <Route path="userlist" element={<UserList />} />
         <Route path="categorylist" element={<CategoryList />} />
+        <Route path="productlist" element={<ProductList />} />
+        <Route path="allproductslist" element={<AllProducts />} />
+        <Route path="productlist/:pageNumber" element={<ProductList />} />
+        <Route path="product/update/:_id" element={<ProductUpdate />} />
       </Route>
     </Route>,
   ),

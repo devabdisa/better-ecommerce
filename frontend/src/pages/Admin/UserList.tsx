@@ -10,6 +10,7 @@ import {
 import type { UserInfo, ApiError } from "../../types";
 import type { FC } from "react";
 import Message from "../../components/Message";
+import AdminMenu from "./AdminMenu";
 
 const UserList: FC = () => {
   const { data: users, refetch, isLoading, error } = useGetUsersQuery();
@@ -64,6 +65,7 @@ const UserList: FC = () => {
 
   return (
     <div className="p-8 min-h-screen bg-background text-white ml-20">
+      <AdminMenu />
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold mb-8 text-blue-500 border-b border-gray-700 pb-4">
           User Management
