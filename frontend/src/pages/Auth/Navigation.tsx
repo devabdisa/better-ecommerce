@@ -13,6 +13,7 @@ import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { useLogoutMutation } from "../../redux/api/usersApiSlice";
 import { logout } from "../../redux/features/auth/authSlice";
 import type { FC } from "react";
+import FavoritesCount from "../Products/FavoritesCount";
 
 const Navigation: FC = () => {
   const { userInfo } = useAppSelector((state) => state.auth);
@@ -60,7 +61,7 @@ const Navigation: FC = () => {
 
         {/* ... (Other links follow similar pattern) */}
 
-        <Link
+        {/* <Link
           to="/shop"
           className="flex items-center transition-transform transform hover:translate-x-2 p-2 rounded-lg hover:bg-white/5"
         >
@@ -69,7 +70,6 @@ const Navigation: FC = () => {
             SHOP
           </span>
         </Link>
-
         <Link
           to="/cart"
           className="flex items-center transition-transform transform hover:translate-x-2 p-2 rounded-lg hover:bg-white/5 relative"
@@ -78,16 +78,16 @@ const Navigation: FC = () => {
           <span className="hidden nav-item-name mt-12 font-medium tracking-wide">
             CART
           </span>
-          <div className="absolute top-9 left-2">
-            {/* Cart Badge could go here if needed */}
-          </div>
-        </Link>
+        </Link> */}
 
         <Link
           to="/favorite"
-          className="flex items-center transition-transform transform hover:translate-x-2 p-2 rounded-lg hover:bg-white/5"
+          className="flex items-center transition-transform transform hover:translate-x-2 p-2 rounded-lg hover:bg-white/5 relative"
         >
-          <FaHeart className="shrink-0 mt-12 mr-2 text-sky-500" size={20} />
+          <div className="flex items-center relative">
+            <FaHeart className="shrink-0 mt-12 mr-2 text-sky-500" size={20} />
+            <FavoritesCount />
+          </div>
           <span className="hidden nav-item-name mt-12 font-medium tracking-wide">
             FAVORITES
           </span>

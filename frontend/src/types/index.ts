@@ -104,6 +104,13 @@ export interface Product {
   updatedAt: string;
 }
 
+export interface ProductsResponse {
+  products: Product[];
+  page: number;
+  pages: number;
+  hasMore: boolean;
+}
+
 // ---- API request / response types ----
 
 export interface LoginRequest {

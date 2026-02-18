@@ -1,10 +1,10 @@
 import { PRODUCT_URL, UPLOAD_URL } from "../constants";
 import { apiSlice } from "./apiSlice";
-import type { Product } from "../../types";
+import type { Product, ProductsResponse } from "../../types";
 
 export const productApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getProducts: builder.query<Product[], { keyword: string }>({
+    getProducts: builder.query<ProductsResponse, { keyword: string }>({
       query: ({ keyword }) => ({
         url: `${PRODUCT_URL}`,
         params: { keyword },
