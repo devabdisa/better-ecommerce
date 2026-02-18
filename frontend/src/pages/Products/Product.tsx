@@ -10,11 +10,11 @@ interface ProductProps {
 const Product: FC<ProductProps> = ({ product }) => {
   return (
     <div className="group relative bg-[#131316] rounded-3xl overflow-hidden border border-white/5 hover:border-blue-500/30 transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col h-full">
-      <div className="relative aspect-square overflow-hidden">
+      <div className="relative w-full h-64 sm:h-72 overflow-hidden bg-[#0a0a0c]">
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
         />
         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         <HeartIcon product={product} />

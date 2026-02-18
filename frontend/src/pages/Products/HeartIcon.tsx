@@ -33,15 +33,18 @@ const HeartIcon: FC<HeartIconProps> = ({ product }) => {
 
   return (
     <div
-      className="absolute top-2 right-5 cursor-pointer z-10 p-2 rounded-full hover:bg-black/20 transition-all duration-300"
+      className="absolute top-2 right-5 cursor-pointer z-10 p-2 rounded-full bg-black/40 hover:bg-black/60 transition-all duration-300 backdrop-blur-sm group/heart"
       onClick={toggleFavorites}
     >
       {isFavorite ? (
-        <FaHeart className="text-sky-500 drop-shadow-md" size={24} />
+        <FaHeart
+          className="text-pink-600 drop-shadow-md transition-transform duration-300 group-hover/heart:scale-110"
+          size={20}
+        />
       ) : (
         <FaRegHeart
-          className="text-white hover:text-sky-400 transition-colors"
-          size={24}
+          className="text-white hover:text-pink-500 transition-colors duration-300"
+          size={20}
         />
       )}
     </div>

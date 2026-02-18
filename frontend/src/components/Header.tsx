@@ -22,9 +22,9 @@ const Header: FC = () => {
   }
 
   return (
-    <div className="flex flex-col xl:flex-row justify-between items-start gap-12 max-w-[1400px] mx-auto px-6 lg:px-12 pt-12">
-      <div className="xl:block hidden w-1/3">
-        <div className="grid grid-cols-2 gap-6">
+    <div className="flex flex-col xl:flex-row justify-between items-stretch gap-8 max-w-[1600px] mx-auto px-6 lg:px-16 pt-12 relative z-10">
+      <div className="xl:block hidden w-1/4 min-w-[320px]">
+        <div className="grid grid-cols-1 gap-6 h-full">
           {data?.slice(0, 4).map((product: Product) => (
             <div
               key={product._id}
