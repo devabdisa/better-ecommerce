@@ -39,14 +39,18 @@ const ProductCarousel: FC = () => {
           className="xl:w-200 lg:w-180 md:w-160 sm:w-140 mx-auto rounded-2xl overflow-hidden glass shadow-2xl"
         >
           {products?.map((product: Product) => (
-            <div key={product._id} className="relative group">
-              <div className="relative h-120">
+            <div
+              key={product._id}
+              className="relative group w-full h-125 md:h-150"
+            >
+              <div className="absolute inset-0 w-full h-full bg-[#0a0a0c]">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-full object-cover rounded-2xl"
+                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-[#0a0a0c] via-transparent to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-700" />
+                <div className="absolute inset-0 bg-linear-to-r from-black/90 via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/90 via-transparent to-transparent" />
               </div>
 
               <div className="absolute bottom-0 left-0 w-full p-10 flex flex-col md:flex-row justify-between items-end gap-8">

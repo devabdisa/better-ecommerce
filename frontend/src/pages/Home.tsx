@@ -14,10 +14,15 @@ const Home: FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-[#0a0a0c] selection:bg-blue-500/30">
+    <div className="min-h-screen bg-[#0a0a0c] selection:bg-blue-500/30 overflow-hidden relative">
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+        <div className="absolute -top-[20%] -left-[10%] w-[70%] h-[70%] bg-blue-900/10 rounded-full blur-[150px]" />
+        <div className="absolute top-[40%] -right-[10%] w-[60%] h-[60%] bg-purple-900/10 rounded-full blur-[150px]" />
+      </div>
+
       {!keyword ? <Header /> : null}
 
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-16">
+      <div className="max-w-[1600px] mx-auto px-6 lg:px-16 py-16 relative z-10">
         {isLoading ? (
           <div className="flex justify-center items-center h-64">
             <Loader />

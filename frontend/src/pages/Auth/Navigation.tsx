@@ -61,7 +61,7 @@ const Navigation: FC = () => {
 
         {/* ... (Other links follow similar pattern) */}
 
-        {/* <Link
+        <Link
           to="/shop"
           className="flex items-center transition-transform transform hover:translate-x-2 p-2 rounded-lg hover:bg-white/5"
         >
@@ -78,7 +78,7 @@ const Navigation: FC = () => {
           <span className="hidden nav-item-name mt-12 font-medium tracking-wide">
             CART
           </span>
-        </Link> */}
+        </Link>
 
         <Link
           to="/favorite"
