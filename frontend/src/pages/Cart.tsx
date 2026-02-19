@@ -26,7 +26,7 @@ const Cart: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#0a0a0c] text-white">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-16">
+      <div className="max-w-350 mx-auto px-6 lg:px-12 py-16">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-white/5 pb-8 relative overflow-hidden">
           <div className="relative z-10">
             <span className="text-blue-500 font-bold uppercase tracking-[0.2em] text-[10px] mb-2 block animate-in fade-in slide-in-from-left duration-700">
@@ -66,9 +66,9 @@ const Cart: React.FC = () => {
               {cartItems.map((item: CartItem) => (
                 <div
                   key={item._id}
-                  className="flex items-center gap-6 p-6 bg-[#131316] rounded-[2rem] border border-white/5 hover:border-blue-500/20 transition-all duration-300 group"
+                  className="flex items-center gap-6 p-6 bg-[#131316] rounded-4xl border border-white/5 hover:border-blue-500/20 transition-all duration-300 group"
                 >
-                  <div className="w-32 h-32 rounded-2xl overflow-hidden flex-shrink-0 bg-white/5 relative">
+                  <div className="w-32 h-32 rounded-2xl overflow-hidden shrink-0 bg-white/5 relative">
                     <img
                       src={item.image}
                       alt={item.name}
@@ -94,19 +94,33 @@ const Cart: React.FC = () => {
                     </p>
 
                     <div className="flex items-center gap-6">
-                      <select
-                        className="p-2 w-20 bg-black/40 text-white rounded-lg border border-white/10 focus:outline-none focus:border-blue-500 text-center font-bold appearance-none cursor-pointer"
-                        value={item.qty}
-                        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                          addToCartHandler(item, Number(e.target.value))
-                        }
-                      >
-                        {[...Array(item.countInStock).keys()].map((x) => (
-                          <option key={x + 1} value={x + 1}>
-                            {x + 1}
-                          </option>
-                        ))}
-                      </select>
+                      <div className="relative">
+                        <select
+                          className="p-2 w-24 pl-4 pr-8 bg-black/40 text-white rounded-lg border border-white/10 focus:outline-none focus:border-blue-500 text-center font-bold appearance-none cursor-pointer"
+                          value={item.qty}
+                          onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                            addToCartHandler(item, Number(e.target.value))
+                          }
+                        >
+                          {[...Array(item.countInStock).keys()].map((x) => (
+                            <option key={x + 1} value={x + 1}>
+                              {x + 1}
+                            </option>
+                          ))}
+                        </select>
+                        <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none text-gray-400">
+                          <svg
+                            className="w-4 h-4 fill-current"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                              clipRule="evenodd"
+                              fillRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      </div>
 
                       <button
                         className="text-gray-500 hover:text-red-500 transition-colors p-2 hover:bg-red-500/10 rounded-full"

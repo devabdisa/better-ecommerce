@@ -75,20 +75,31 @@ const ProductTabs: FC<ProductTabsProps> = ({
                     Rate this product
                   </label>
 
-                  <select
-                    id="rating"
-                    required
-                    value={rating}
-                    onChange={(e) => setRating(Number(e.target.value))}
-                    className="p-4 w-full rounded-xl bg-surface text-white border border-gray-600 focus:outline-none focus:border-blue-500 transition-all cursor-pointer appearance-none font-bold"
-                  >
-                    <option value="">Select Rating</option>
-                    <option value="1">1 - Inferior</option>
-                    <option value="2">2 - Decent</option>
-                    <option value="3">3 - Great</option>
-                    <option value="4">4 - Excellent</option>
-                    <option value="5">5 - Exceptional</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      id="rating"
+                      required
+                      value={rating}
+                      onChange={(e) => setRating(Number(e.target.value))}
+                      className="p-4 w-full rounded-xl bg-surface text-white border border-gray-600 focus:outline-none focus:border-blue-500 transition-all cursor-pointer appearance-none font-bold"
+                    >
+                      <option value="">Select Rating</option>
+                      <option value="1">1 - Inferior</option>
+                      <option value="2">2 - Decent</option>
+                      <option value="3">3 - Great</option>
+                      <option value="4">4 - Excellent</option>
+                      <option value="5">5 - Exceptional</option>
+                    </select>
+                    <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-400">
+                      <svg className="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                        <path
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                          fillRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
 
                 <div>

@@ -22,6 +22,7 @@ export const productApiSlice = apiSlice.injectEndpoints({
 
     allProducts: builder.query<Product[], void>({
       query: () => `${PRODUCT_URL}/allProducts`,
+      providesTags: ["Product"],
     }),
 
     getProductDetails: builder.query<Product, string>({
@@ -49,6 +50,7 @@ export const productApiSlice = apiSlice.injectEndpoints({
         method: "PUT",
         body: formData,
       }),
+      invalidatesTags: ["Product"],
     }),
 
     uploadProductImage: builder.mutation<

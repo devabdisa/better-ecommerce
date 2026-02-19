@@ -96,7 +96,7 @@ const ProductDetails: FC = () => {
   return (
     <div className="min-h-screen bg-[#0a0a0c] text-white pb-20 overflow-x-hidden">
       <div className="ml-20 pt-8 relative z-10">
-        <div className="flex flex-col lg:flex-row items-stretch gap-12 max-w-[1600px] mx-auto px-6 lg:px-16 mt-8">
+        <div className="flex flex-col lg:flex-row items-stretch gap-12 max-w-400 mx-auto px-6 lg:px-16 mt-8">
           <div className="lg:w-1/2 w-full animate-in fade-in slide-in-from-left duration-700">
             <Link
               to="/"
@@ -241,13 +241,15 @@ const ProductDetails: FC = () => {
             <div className="flex items-center gap-6 flex-wrap mt-8">
               {product.countInStock > 0 && (
                 <div className="flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/10">
-                  <select
-                    value={qty}
-                    onChange={(e) => setQty(Number(e.target.value))}
-                    className="p-2 w-16 bg-transparent text-white focus:outline-none cursor-pointer appearance-none text-center font-bold text-lg"
-                  >
-                    {[...Array(Math.min(product.countInStock, 10)).keys()].map(
-                      (x) => (
+                  <div className="relative">
+                    <select
+                      value={qty}
+                      onChange={(e) => setQty(Number(e.target.value))}
+                      className="p-2 w-16 pl-3 pr-8 bg-transparent text-white focus:outline-none cursor-pointer appearance-none text-center font-bold text-lg"
+                    >
+                      {[
+                        ...Array(Math.min(product.countInStock, 10)).keys(),
+                      ].map((x) => (
                         <option
                           key={x + 1}
                           value={x + 1}
@@ -255,9 +257,18 @@ const ProductDetails: FC = () => {
                         >
                           {x + 1}
                         </option>
-                      ),
-                    )}
-                  </select>
+                      ))}
+                    </select>
+                    <div className="absolute inset-y-0 right-0 flex items-center px-1 pointer-events-none text-gray-400">
+                      <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                        <path
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                          fillRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </div>
                   <span className="text-gray-400 text-sm font-bold pr-2">
                     QTY
                   </span>
@@ -276,7 +287,7 @@ const ProductDetails: FC = () => {
           </div>
         </div>
 
-        <div className="mt-20 max-w-[1600px] mx-auto px-6 lg:px-16 animate-in fade-in slide-in-from-bottom duration-700 delay-200">
+        <div className="mt-20 max-w-400 mx-auto px-6 lg:px-16 animate-in fade-in slide-in-from-bottom duration-700 delay-200">
           <div className="p-10 glass rounded-[2.5rem] border border-white/5 bg-[#131316]">
             <ProductTabs
               loadingProductReview={loadingProductReview}

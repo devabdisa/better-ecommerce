@@ -1,3 +1,4 @@
+import React from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import {
   addToFavorites,
@@ -21,7 +22,9 @@ const HeartIcon: FC<HeartIconProps> = ({ product }) => {
   const favorites = useAppSelector((state) => state.favorites) || [];
   const isFavorite = favorites.some((p) => p._id === product._id);
 
-  const toggleFavorites = () => {
+  const toggleFavorites = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
     if (isFavorite) {
       dispatch(removeFromFavorites(product));
       removeFavoriteFromLocalStorage(product._id);
