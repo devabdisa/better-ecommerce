@@ -1,6 +1,16 @@
-import { PRODUCT_URL, UPLOAD_URL } from "../constants";
+import { PRODUCT_URL, UPLOAD_URL, BASE_URL } from "../constants";
 import { apiSlice } from "./apiSlice";
 import type { Product, ProductsResponse } from "../../types";
+
+const transformProductImage = (product: Product): Product => {
+  if (!product.image) return product;
+  return {
+    ...product,
+    image: product.image.startsWith("http")
+      ? product.image
+      : `${BASE_URL}${product.image}`,
+  };
+};
 
 export const productApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -11,10 +21,15 @@ export const productApiSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: 5,
       providesTags: ["Product"],
+      transformResponse: (response: ProductsResponse) => ({
+        ...response,
+        products: response.products.map(transformProductImage),
+      }),
     }),
 
     getProductById: builder.query<Product, string>({
       query: (productId) => `${PRODUCT_URL}/${productId}`,
+      transformResponse: (response: Product) => transformProductImage(response),
       providesTags: (_result, _error, productId) => [
         { type: "Product", id: productId },
       ],
@@ -22,6 +37,8 @@ export const productApiSlice = apiSlice.injectEndpoints({
 
     allProducts: builder.query<Product[], void>({
       query: () => `${PRODUCT_URL}/allProducts`,
+      transformResponse: (response: Product[]) =>
+        response.map(transformProductImage),
       providesTags: ["Product"],
     }),
 
@@ -29,6 +46,7 @@ export const productApiSlice = apiSlice.injectEndpoints({
       query: (productId) => ({
         url: `${PRODUCT_URL}/${productId}`,
       }),
+      transformResponse: (response: Product) => transformProductImage(response),
       keepUnusedDataFor: 5,
     }),
 
@@ -62,6 +80,12 @@ export const productApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      transformResponse: (response: { message: string; image: string }) => ({
+        ...response,
+        image: response.image.startsWith("http")
+          ? response.image
+          : `${BASE_URL}${response.image}`,
+      }),
     }),
 
     deleteProduct: builder.mutation<{ message: string }, string>({
@@ -85,11 +109,15 @@ export const productApiSlice = apiSlice.injectEndpoints({
 
     getTopProducts: builder.query<Product[], void>({
       query: () => `${PRODUCT_URL}/top`,
+      transformResponse: (response: Product[]) =>
+        response.map(transformProductImage),
       keepUnusedDataFor: 5,
     }),
 
     getNewProducts: builder.query<Product[], void>({
       query: () => `${PRODUCT_URL}/new`,
+      transformResponse: (response: Product[]) =>
+        response.map(transformProductImage),
       keepUnusedDataFor: 5,
     }),
 
@@ -102,6 +130,8 @@ export const productApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { checked, radio },
       }),
+      transformResponse: (response: Product[]) =>
+        response.map(transformProductImage),
     }),
   }),
 });
