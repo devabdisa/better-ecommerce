@@ -24,6 +24,7 @@ import type { RootState, ApiError, CartItem } from "../../types";
 import Ratings from "./Ratings";
 import ProductTabs from "./ProductTabs";
 import Meta from "../../components/Meta";
+import { resolveImageUrl } from "../../utils/imageUrl";
 
 const ProductDetails: FC = () => {
   const { id: productId } = useParams<{ id: string }>();
@@ -126,7 +127,7 @@ const ProductDetails: FC = () => {
             <div className="relative group rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/5 bg-[#131316]">
               <div className="absolute inset-0 bg-blue-500/5 group-hover:bg-blue-500/10 transition-colors duration-500" />
               <img
-                src={product.image}
+                src={resolveImageUrl(product.image)}
                 alt={product.name}
                 className="w-full h-150 object-cover transition-transform duration-700 group-hover:scale-105"
               />

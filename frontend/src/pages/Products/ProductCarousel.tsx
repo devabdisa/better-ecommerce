@@ -10,6 +10,7 @@ import moment from "moment";
 import { FaBox, FaClock, FaStar, FaStore, FaArrowRight } from "react-icons/fa";
 import type { FC } from "react";
 import type { Product, ApiError } from "../../types";
+import { resolveImageUrl } from "../../utils/imageUrl";
 
 const ProductCarousel: FC = () => {
   const { data: products, isLoading, error } = useGetTopProductsQuery();
@@ -47,7 +48,7 @@ const ProductCarousel: FC = () => {
             >
               <div className="absolute inset-0 w-full h-full bg-[#0a0a0c]">
                 <img
-                  src={product.image}
+                  src={resolveImageUrl(product.image)}
                   alt={product.name}
                   className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all duration-1000 transform group-hover:scale-110"
                 />

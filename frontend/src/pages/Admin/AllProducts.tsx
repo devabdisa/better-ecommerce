@@ -4,6 +4,7 @@ import { useAllProductsQuery } from "../../redux/api/productApiSlice";
 import AdminMenu from "./AdminMenu";
 import type { Product } from "../../types";
 import type { FC } from "react";
+import { resolveImageUrl } from "../../utils/imageUrl";
 
 const AllProducts: FC = () => {
   const { data: products, isLoading, isError } = useAllProductsQuery();
@@ -39,7 +40,7 @@ const AllProducts: FC = () => {
               >
                 <div className="relative overflow-hidden w-full h-50 border-b border-gray-800">
                   <img
-                    src={product.image}
+                    src={resolveImageUrl(product.image)}
                     alt={product.name}
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                   />

@@ -1,10 +1,8 @@
 // packages
-import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import fs from "fs";
 import userRoutes from "./routes/userRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
@@ -41,14 +39,5 @@ app.use("/api/products", productRoutes);
 app.use("/api/upload", uploadRoutes);
 
 app.use("/api/orders", orderRoutes);
-
-const __dirname = path.resolve();
-const uploadsDir = path.join(__dirname, "uploads");
-
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
-}
-
-app.use("/uploads", express.static(uploadsDir));
 
 app.listen(port, () => console.log(`Server running on port: ${port}`));

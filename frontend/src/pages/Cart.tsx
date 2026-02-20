@@ -5,6 +5,7 @@ import { FaTrash, FaShoppingCart } from "react-icons/fa";
 import { addToCart, removeFromCart } from "../redux/features/cart/cartSlice";
 import type { RootState, CartItem } from "../types";
 import Meta from "../components/Meta";
+import { resolveImageUrl } from "../utils/imageUrl";
 
 const Cart: React.FC = () => {
   const navigate = useNavigate();
@@ -72,7 +73,7 @@ const Cart: React.FC = () => {
                 >
                   <div className="w-32 h-32 rounded-2xl overflow-hidden shrink-0 bg-white/5 relative">
                     <img
-                      src={item.image}
+                      src={resolveImageUrl(item.image)}
                       alt={item.name}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />

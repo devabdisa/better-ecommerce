@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import AdminMenu from "./AdminMenu";
 import type { ChangeEvent, FormEvent, FC } from "react";
 import type { ApiError } from "../../types";
+import { resolveImageUrl } from "../../utils/imageUrl";
 
 const ProductList: FC = () => {
   const [image, setImage] = useState<File | string>("");
@@ -86,7 +87,7 @@ const ProductList: FC = () => {
         {imageUrl && (
           <div className="text-center mb-6">
             <img
-              src={imageUrl}
+              src={resolveImageUrl(imageUrl)}
               alt="product"
               className="block mx-auto max-h-50 rounded-lg shadow-lg border border-gray-700"
             />

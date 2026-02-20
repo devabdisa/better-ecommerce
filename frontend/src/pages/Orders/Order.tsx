@@ -24,6 +24,7 @@ import {
   FaMoneyBillWave,
   FaSpinner,
 } from "react-icons/fa";
+import { resolveImageUrl } from "../../utils/imageUrl";
 
 const Order: FC = () => {
   const { id: orderId } = useParams<{ id: string }>();
@@ -45,7 +46,9 @@ const Order: FC = () => {
   const [deliverOrder, { isLoading: loadingDeliver }] =
     useDeliverOrderMutation();
 
-  const { userInfo } = useAppSelector((state: { auth: { userInfo: any } }) => state.auth);
+  const { userInfo } = useAppSelector(
+    (state: { auth: { userInfo: any } }) => state.auth,
+  );
 
   const [verifyAttempted, setVerifyAttempted] = useState(false);
 
@@ -280,7 +283,7 @@ const Order: FC = () => {
                       >
                         <div className="w-20 h-20 rounded-2xl overflow-hidden shrink-0 border border-white/10 shadow-lg">
                           <img
-                            src={item.image}
+                            src={resolveImageUrl(item.image)}
                             alt={item.name}
                             className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                           />

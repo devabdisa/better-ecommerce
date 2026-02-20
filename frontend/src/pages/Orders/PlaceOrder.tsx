@@ -15,6 +15,7 @@ import {
   FaArrowRight,
   FaArrowLeft,
 } from "react-icons/fa";
+import { resolveImageUrl } from "../../utils/imageUrl";
 
 const PlaceOrder: FC = () => {
   const navigate = useNavigate();
@@ -137,7 +138,7 @@ const PlaceOrder: FC = () => {
                     >
                       <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0 shadow-lg border border-white/10">
                         <img
-                          src={item.image}
+                          src={resolveImageUrl(item.image)}
                           alt={item.name}
                           className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                         />

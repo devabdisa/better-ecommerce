@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import HeartIcon from "./HeartIcon";
 import type { FC } from "react";
 import type { Product } from "../../types";
+import { resolveImageUrl } from "../../utils/imageUrl";
 
 interface ProductCardProps {
   p: Product;
@@ -31,7 +32,7 @@ const ProductCard: FC<ProductCardProps> = ({ p }) => {
           </span>
           <img
             className="cursor-pointer w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            src={p.image}
+            src={resolveImageUrl(p.image)}
             alt={p.name}
             style={{ height: "180px" }}
           />

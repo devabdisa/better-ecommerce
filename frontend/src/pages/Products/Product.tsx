@@ -3,6 +3,7 @@ import HeartIcon from "./HeartIcon";
 import { FaArrowRight } from "react-icons/fa";
 import type { FC } from "react";
 import type { Product as ProductType } from "../../types";
+import { resolveImageUrl } from "../../utils/imageUrl";
 
 interface ProductProps {
   product: ProductType;
@@ -14,7 +15,7 @@ const Product: FC<ProductProps> = ({ product }) => {
       <div className="relative w-full h-64 sm:h-72 overflow-hidden bg-[#0d0d0f]">
         <Link to={`/product/${product._id}`}>
           <img
-            src={product.image}
+            src={resolveImageUrl(product.image)}
             alt={product.name}
             className="w-full h-full object-cover transform transition-transform duration-1000 group-hover:scale-110 opacity-80 group-hover:opacity-100"
           />

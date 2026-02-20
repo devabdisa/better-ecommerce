@@ -3,6 +3,7 @@ import { FaArrowRight } from "react-icons/fa";
 import type { FC } from "react";
 import type { Product } from "../../types";
 import HeartIcon from "./HeartIcon";
+import { resolveImageUrl } from "../../utils/imageUrl";
 
 interface SmallProductProps {
   product: Product;
@@ -13,7 +14,7 @@ const SmallProduct: FC<SmallProductProps> = ({ product }) => {
     <div className="group relative bg-[#131316]/60 backdrop-blur-xl rounded-[1.5rem] overflow-hidden border border-white/5 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl flex items-center h-28 transform hover:scale-[1.02]">
       <div className="relative w-28 h-28 overflow-hidden bg-[#0d0d10] flex-shrink-0">
         <img
-          src={product.image}
+          src={resolveImageUrl(product.image)}
           alt={product.name}
           className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-80 group-hover:opacity-100"
         />

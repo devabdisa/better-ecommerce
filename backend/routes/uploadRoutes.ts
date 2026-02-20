@@ -1,17 +1,27 @@
 import path from "path";
 import express, { Request, Response } from "express";
 import multer from "multer";
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const uploadPath = path.join(path.resolve(), "uploads");
-    cb(null, uploadPath);
-  },
-  filename: (req, file, cb) => {
-    const extname = path.extname(file.originalname);
-    cb(null, `${file.fieldname}-${Date.now()}${extname}`);
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+// Use Cloudinary storage so uploaded images are stored in the cloud
+// and persist across Render restarts/redeployments
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    // @ts-ignore
+    folder: "ethio-panda",
+    allowed_formats: ["jpg", "jpeg", "png", "webp"],
+    transformation: [{ width: 1200, quality: "auto", fetch_format: "auto" }],
   },
 });
 
@@ -44,9 +54,10 @@ router.post("/", (req: Request, res: Response) => {
     }
 
     if (req.file) {
+      // Cloudinary returns the secure_url on req.file.path
       res.status(200).send({
         message: "Image uploaded successfully",
-        image: `/uploads/${req.file.filename}`,
+        image: req.file.path, // This is the full Cloudinary HTTPS URL
       });
     } else {
       res.status(400).send({ message: "No image file provided" });

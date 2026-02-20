@@ -11,6 +11,7 @@ import { useFetchCategoriesQuery } from "../../redux/api/categoryApiSlice";
 import { toast } from "react-toastify";
 import type { ChangeEvent, FormEvent, FC } from "react";
 import type { ApiError } from "../../types";
+import { resolveImageUrl } from "../../utils/imageUrl";
 
 const ProductUpdate: FC = () => {
   const params = useParams();
@@ -143,7 +144,7 @@ const ProductUpdate: FC = () => {
           {image && (
             <div className="text-center mb-6">
               <img
-                src={image}
+                src={resolveImageUrl(image)}
                 alt="product"
                 className="block mx-auto max-h-75 w-auto rounded-lg shadow-md border border-gray-600"
               />
