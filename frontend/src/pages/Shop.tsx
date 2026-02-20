@@ -10,6 +10,7 @@ import {
 } from "../redux/features/shop/shopSlice";
 // import Loader from "../components/Loader";
 import ProductCard from "./Products/ProductCard";
+import Meta from "../components/Meta";
 import type { FC, ChangeEvent } from "react";
 import type { RootState, Category, Product } from "../types";
 
@@ -67,6 +68,10 @@ const Shop: FC = () => {
 
   return (
     <div className="ml-20 min-h-screen bg-[#0a0a0c] text-white">
+      <Meta
+        title="Shop | Premium Collection"
+        description="Browse our exclusive collection of high-quality products. Filter by category, brand, and price."
+      />
       <div className="flex flex-col md:flex-row relative">
         {/* Sidebar Filters */}
         <div className="md:w-[20%] p-6 bg-[#131316] border-r border-white/5 h-auto md:min-h-screen sticky top-0 overflow-y-auto">

@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
 import type { FormEvent, FC } from "react";
 import type { ApiError } from "../../types";
+import Meta from "../../components/Meta";
+import { FaLock, FaEnvelope, FaShoppingBag } from "react-icons/fa";
 
 const Login: FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -35,104 +37,124 @@ const Login: FC = () => {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate(redirect);
-      toast.success("Login successful");
+      toast.success("Welcome back to Ethio Panda!");
     } catch (err) {
       const error = err as ApiError;
-      toast.error(error?.data?.message || error.error || "An error occurred");
+      toast.error(
+        error?.data?.message ||
+          error.error ||
+          "Login failed. Please check your details.",
+      );
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background text-white">
-      <section className="flex flex-col md:flex-row items-center justify-center w-full max-w-6xl px-4">
-        {/* Login Form Section */}
-        <div className="md:w-1/2 w-full p-8 md:p-12 glass rounded-2xl md:rounded-r-none z-10 animate-fade-in-up">
-          <h1 className="text-3xl font-bold mb-6 text-blue-500">Sign In</h1>
-          <p className="text-gray-400 mb-8">
-            Welcome back! Please enter your details.
-          </p>
+    <div className="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden font-sans">
+      <Meta title="Login | Ethio Panda" />
 
-          <form onSubmit={submitHandler} className="w-full">
-            <div className="mb-6">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-300 mb-2"
-              >
+      <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch">
+        <div className="glass-card rounded-[2.5rem] p-10 lg:p-16 border-white/5 shadow-2xl space-y-10 animate-in fade-in slide-in-from-left duration-1000">
+          <div className="space-y-4">
+            <div className="px-4 py-1 rounded-lg bg-primary/10 border border-primary/20 text-[10px] font-bold text-primary uppercase tracking-[0.2em] w-fit">
+              Premium Shopping
+            </div>
+            <h1 className="text-4xl lg:text-5xl font-bold tracking-tight text-white">
+              Welcome <span className="text-primary">Back</span>
+            </h1>
+            <p className="text-text-muted font-medium text-sm">
+              Sign in to access your wishlist, orders, and personalized offers.
+            </p>
+          </div>
+
+          <form onSubmit={submitHandler} className="space-y-6">
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold text-text-muted uppercase tracking-[0.2em] ml-4">
                 Email Address
               </label>
-              <input
-                type="email"
-                id="email"
-                className="w-full p-3 rounded-lg bg-surface border border-gray-600 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <div className="relative group">
+                <FaEnvelope className="absolute left-6 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-primary transition-colors" />
+                <input
+                  type="email"
+                  className="w-full bg-white/[0.03] border border-white/5 rounded-2xl py-4 pl-14 pr-6 text-white focus:border-primary focus:bg-white/[0.05] transition-all outline-none font-medium placeholder:text-white/10"
+                  placeholder="meetabdisa@gmail.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
             </div>
 
-            <div className="mb-8">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-300 mb-2"
-              >
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold text-text-muted uppercase tracking-[0.2em] ml-4">
                 Password
               </label>
-              <input
-                type="password"
-                id="password"
-                className="w-full p-3 rounded-lg bg-surface border border-gray-600 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="relative group">
+                <FaLock className="absolute left-6 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-primary transition-colors" />
+                <input
+                  type="password"
+                  className="w-full bg-white/[0.03] border border-white/5 rounded-2xl py-4 pl-14 pr-6 text-white focus:border-primary focus:bg-white/[0.05] transition-all outline-none font-medium placeholder:text-white/10"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
             </div>
 
             <button
               disabled={isLoading}
               type="submit"
-              className="w-full bg-linear-to-r from-blue-600 to-sky-500 text-white font-bold py-3 px-4 rounded-lg hover:from-blue-700 hover:to-sky-600 transition-all duration-300 transform hover:scale-[1.02] active:scale-95 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-primary text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-primary-dark transition-all transform hover:scale-[1.02] active:scale-95 shadow-xl shadow-primary/20 disabled:opacity-50 flex items-center justify-center gap-3 group"
             >
-              {isLoading ? "Signing In..." : "Sign In"}
+              {isLoading ? (
+                "Signing in..."
+              ) : (
+                <>
+                  Enter Store
+                  <FaShoppingBag className="group-hover:translate-x-1 transition-transform" />
+                </>
+              )}
             </button>
 
-            {isLoading && (
-              <div className="mt-4">
-                <Loader />
-              </div>
-            )}
+            {isLoading && <Loader />}
           </form>
 
-          <div className="mt-6 text-center">
-            <p className="text-gray-400">
-              New Customer?{" "}
-              <Link
-                to={redirect ? `/register?redirect=${redirect}` : "/register"}
-                className="text-blue-400 hover:text-blue-300 font-medium hover:underline transition-colors"
-              >
-                Register here
-              </Link>
-            </p>
-          </div>
+          <p className="text-center text-text-muted text-xs font-bold uppercase tracking-widest pt-6 border-t border-white/5">
+            New to Ethio Panda?{" "}
+            <Link
+              to={redirect ? `/register?redirect=${redirect}` : "/register"}
+              className="text-primary hover:text-white transition-colors ml-2 underline underline-offset-4"
+            >
+              Create Account
+            </Link>
+          </p>
         </div>
 
-        {/* Image Section - styled to look premium */}
-        <div className=" md:w-1/2 w-full hidden md:block h-150 relative">
-          <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent z-10"></div>
+        {/* Decorative Side Content */}
+        <div className="hidden lg:flex relative rounded-[2.5rem] overflow-hidden group animate-in fade-in slide-in-from-right duration-1000">
           <img
-            src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80"
-            alt="Shopping"
-            className="h-full w-full object-cover rounded-2xl md:rounded-l-none shadow-2xl opacity-90"
+            src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            alt="Premium Shopping Experience"
+            className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-[3s]"
           />
-          <div className="absolute bottom-10 left-10 z-20">
-            <h2 className="text-3xl font-bold text-white mb-2">
-              Discover quality.
-            </h2>
-            <p className="text-gray-200">
-              Shop the best products at unbeatable prices.
-            </p>
+          <div className="absolute inset-0 bg-linear-to-t from-[#0a0a0c] via-black/20 to-transparent" />
+
+          <div className="relative z-10 m-auto text-center space-y-6 max-w-xs px-6">
+            <div className="w-20 h-20 rounded-3xl bg-white/10 backdrop-blur-3xl border border-white/20 flex items-center justify-center mx-auto shadow-2xl">
+              <FaShoppingBag className="text-white text-3xl" />
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-2xl font-bold text-white tracking-tight">
+                Luxury Defined
+              </h3>
+              <p className="text-white/70 text-xs font-medium leading-relaxed">
+                Step into a world of curated collections and exclusive designs
+                crafted for those who settle for nothing but the best.
+              </p>
+            </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };

@@ -8,6 +8,7 @@ import type { FC } from "react";
 import type { Product as ProductType, ApiError } from "../types";
 import Product from "./Products/Product";
 import { FaShippingFast, FaShieldAlt, FaHeadset, FaGem } from "react-icons/fa";
+import Meta from "../components/Meta";
 
 const Home: FC = () => {
   const { keyword } = useParams<{ keyword?: string }>();
@@ -19,7 +20,9 @@ const Home: FC = () => {
 
   return (
     <div className="min-h-screen bg-[#0a0a0c] selection:bg-primary/30 overflow-hidden relative font-sans">
+      <Meta />
       {/* Dynamic Background Elements */}
+
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
         <div className="absolute -top-[20%] -left-[10%] w-[70%] h-[70%] bg-primary/10 rounded-full blur-[150px] animate-pulse" />
         <div
@@ -142,8 +145,7 @@ const Home: FC = () => {
                     </>
                   ) : (
                     <>
-                      Exclusive{" "}
-                      <span className="text-primary ">Stock</span>
+                      Exclusive <span className="text-primary ">Stock</span>
                     </>
                   )}
                 </h1>

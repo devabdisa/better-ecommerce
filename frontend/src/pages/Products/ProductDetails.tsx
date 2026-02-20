@@ -23,6 +23,7 @@ import type { FC, FormEvent } from "react";
 import type { RootState, ApiError, CartItem } from "../../types";
 import Ratings from "./Ratings";
 import ProductTabs from "./ProductTabs";
+import Meta from "../../components/Meta";
 
 const ProductDetails: FC = () => {
   const { id: productId } = useParams<{ id: string }>();
@@ -95,6 +96,10 @@ const ProductDetails: FC = () => {
 
   return (
     <div className="min-h-screen bg-[#0a0a0c] text-white pb-20 overflow-x-hidden">
+      <Meta
+        title={`${product.name} | Ethio Panda`}
+        description={product.description}
+      />
       <div className="ml-20 pt-8 relative z-10">
         <div className="flex flex-col lg:flex-row items-stretch gap-12 max-w-400 mx-auto px-6 lg:px-16 mt-8">
           <div className="lg:w-1/2 w-full animate-in fade-in slide-in-from-left duration-700">

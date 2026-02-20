@@ -6,6 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useAppDispatch } from "./redux/hooks";
 import { setFavorites } from "./redux/features/favorites/favoriteSlice";
 import { getFavoritesFromLocalStorage } from "./utils/localStorage";
+import ScrollToTop from "./components/ScrollToTop";
+import Background from "./components/Background";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -16,13 +18,15 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <ToastContainer />
+    <div className="relative min-h-screen">
+      <ToastContainer theme="dark" position="top-right" />
+      <ScrollToTop />
+      <Background />
       <Navigation />
-      <main className="py-3">
+      <main className="transition-all duration-300">
         <Outlet />
       </main>
-    </>
+    </div>
   );
 };
 

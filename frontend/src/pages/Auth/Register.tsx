@@ -7,6 +7,8 @@ import { setCredentials } from "../../redux/features/auth/authSlice";
 import { toast } from "react-toastify";
 import type { FormEvent, FC } from "react";
 import type { ApiError } from "../../types";
+import Meta from "../../components/Meta";
+import { FaUser, FaEnvelope, FaLock, FaUserPlus, FaGem } from "react-icons/fa";
 
 const Register: FC = () => {
   const [username, setName] = useState<string>("");
@@ -43,137 +45,160 @@ const Register: FC = () => {
       const res = await register({ username, email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate(redirect);
-      toast.success("Registration successful");
+      toast.success("Account created! Welcome to the family.");
     } catch (err) {
       const error = err as ApiError;
-      console.log(error);
-      toast.error(error?.data?.message || "Registration failed");
+      toast.error(
+        error?.data?.message || "Registration failed. Please try again.",
+      );
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background text-white">
-      <section className="flex flex-col md:flex-row items-center justify-center w-full max-w-6xl px-4 py-8">
-        {/* Register Form Section */}
-        <div className="md:w-1/2 w-full p-8 md:p-12 glass rounded-2xl md:rounded-r-none z-10 animate-fade-in-up md:order-1 order-2">
-          <h1 className="text-3xl font-bold mb-6 text-blue-500">
-            Create Account
-          </h1>
-          <p className="text-gray-400 mb-8">Join the community today.</p>
+    <div className="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden font-sans">
+      <Meta title="Join Us | Ethio Panda" />
 
-          <form onSubmit={submitHandler} className="w-full">
-            <div className="mb-4">
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-300 mb-2"
-              >
-                Full Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                className="w-full p-3 rounded-lg bg-surface border border-gray-600 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-                placeholder="Enter your name"
-                value={username}
-                onChange={(e) => setName(e.target.value)}
-              />
+      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch">
+        {/* Decorative Side Content */}
+        <div className="hidden lg:flex relative rounded-[2.5rem] overflow-hidden group animate-in fade-in slide-in-from-left duration-1000">
+          <img
+            src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            alt="Fashion and Style"
+            className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-[3s]"
+          />
+          <div className="absolute inset-0 bg-linear-to-t from-[#0a0a0c] via-transparent to-transparent" />
+
+          <div className="relative z-10 m-auto text-center space-y-6 max-w-xs">
+            <div className="w-20 h-20 rounded-3xl bg-white/10 backdrop-blur-3xl border border-white/20 flex items-center justify-center mx-auto shadow-2xl animate-pulse">
+              <FaGem className="text-white text-3xl" />
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-2xl font-bold text-white tracking-tight">
+                Vibrant Lifestyle
+              </h3>
+              <p className="text-white/70 text-xs font-medium leading-relaxed">
+                Join our community of trendsetters. Get early access to new
+                drops, special member pricing, and 24/7 VIP support.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="glass-card rounded-[2.5rem] p-10 lg:p-16 border-white/5 shadow-2xl space-y-10 animate-in fade-in slide-in-from-right duration-1000">
+          <div className="space-y-4">
+            <div className="px-4 py-1 rounded-lg bg-primary/10 border border-primary/20 text-[10px] font-bold text-primary uppercase tracking-[0.2em] w-fit">
+              Membership
+            </div>
+            <h1 className="text-4xl lg:text-5xl font-bold tracking-tight text-white">
+              Create <span className="text-primary">Account</span>
+            </h1>
+            <p className="text-text-muted font-medium text-sm">
+              Your journey to a premium shopping experience starts here.
+            </p>
+          </div>
+
+          <form onSubmit={submitHandler} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-text-muted uppercase tracking-[0.2em] ml-4">
+                  Full Name
+                </label>
+                <div className="relative group">
+                  <FaUser className="absolute left-6 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-primary transition-colors" />
+                  <input
+                    type="text"
+                    className="w-full bg-white/[0.03] border border-white/5 rounded-2xl py-4 pl-14 pr-6 text-white focus:border-primary focus:bg-white/[0.05] transition-all outline-none font-medium"
+                    placeholder="Your Name"
+                    value={username}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-text-muted uppercase tracking-[0.2em] ml-4">
+                  Email Address
+                </label>
+                <div className="relative group">
+                  <FaEnvelope className="absolute left-6 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-primary transition-colors" />
+                  <input
+                    type="email"
+                    className="w-full bg-white/[0.03] border border-white/5 rounded-2xl py-4 pl-14 pr-6 text-white focus:border-primary focus:bg-white/[0.05] transition-all outline-none font-medium"
+                    placeholder="name@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
             </div>
 
-            <div className="mb-4">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-300 mb-2"
-              >
-                Email Address
-              </label>
-              <input
-                type="email"
-                id="email"
-                className="w-full p-3 rounded-lg bg-surface border border-gray-600 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-text-muted uppercase tracking-[0.2em] ml-4">
+                  Password
+                </label>
+                <div className="relative group">
+                  <FaLock className="absolute left-6 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-primary transition-colors" />
+                  <input
+                    type="password"
+                    className="w-full bg-white/[0.03] border border-white/5 rounded-2xl py-4 pl-14 pr-6 text-white focus:border-primary focus:bg-white/[0.05] transition-all outline-none font-medium"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
 
-            <div className="mb-4">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-300 mb-2"
-              >
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                className="w-full p-3 rounded-lg bg-surface border border-gray-600 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-                placeholder="Enter password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-
-            <div className="mb-8">
-              <label
-                htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-300 mb-2"
-              >
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                id="confirmPassword"
-                className="w-full p-3 rounded-lg bg-surface border border-gray-600 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-                placeholder="Confirm password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-text-muted uppercase tracking-[0.2em] ml-4">
+                  Confirm Password
+                </label>
+                <div className="relative group">
+                  <FaLock className="absolute left-6 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-primary transition-colors" />
+                  <input
+                    type="password"
+                    className="w-full bg-white/[0.03] border border-white/5 rounded-2xl py-4 pl-14 pr-6 text-white focus:border-primary focus:bg-white/[0.05] transition-all outline-none font-medium"
+                    placeholder="••••••••"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
             </div>
 
             <button
               disabled={isLoading}
               type="submit"
-              className="w-full bg-linear-to-r from-blue-600 to-sky-500 text-white font-bold py-3 px-4 rounded-lg hover:from-blue-700 hover:to-sky-600 transition-all duration-300 transform hover:scale-[1.02] active:scale-95 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-primary text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-primary-dark transition-all transform hover:scale-[1.02] active:scale-95 shadow-xl shadow-primary/20 disabled:opacity-50 flex items-center justify-center gap-3 group"
             >
-              {isLoading ? "Registering..." : "Register"}
+              {isLoading ? (
+                "Creating Account..."
+              ) : (
+                <>
+                  Join the Community
+                  <FaUserPlus className="group-hover:scale-110 transition-transform" />
+                </>
+              )}
             </button>
 
-            {isLoading && (
-              <div className="mt-4">
-                <Loader />
-              </div>
-            )}
+            {isLoading && <Loader />}
           </form>
 
-          <div className="mt-6 text-center">
-            <p className="text-gray-400">
-              Already have an account?{" "}
-              <Link
-                to={redirect ? `/login?redirect=${redirect}` : "/login"}
-                className="text-blue-400 hover:text-blue-300 font-medium hover:underline transition-colors"
-              >
-                Login here
-              </Link>
-            </p>
-          </div>
+          <p className="text-center text-text-muted text-xs font-bold uppercase tracking-widest pt-6 border-t border-white/5">
+            Already have an account?{" "}
+            <Link
+              to={redirect ? `/login?redirect=${redirect}` : "/login"}
+              className="text-primary hover:text-white transition-colors ml-2 underline underline-offset-4"
+            >
+              Sign In
+            </Link>
+          </p>
         </div>
-
-        {/* Image Section */}
-        <div className="md:w-1/2 w-full hidden md:block h-175 md:order-2 order-1 relative group">
-          <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent z-10"></div>
-          <img
-            src="https://images.unsplash.com/photo-1576502200916-3808e07386a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2065&q=80"
-            alt="Register"
-            className="h-full w-full object-cover rounded-2xl md:rounded-l-none shadow-2xl opacity-90 transition-transform duration-700 group-hover:scale-105"
-          />
-          <div className="absolute bottom-10 right-10 z-20 text-right">
-            <h2 className="text-3xl font-bold text-white mb-2">
-              Join the revolution.
-            </h2>
-            <p className="text-gray-200">Exclusive deals await you inside.</p>
-          </div>
-        </div>
-      </section>
+      </div>
     </div>
   );
 };
