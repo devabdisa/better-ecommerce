@@ -6,6 +6,7 @@ import createToken from "../utils/createToken.js";
 
 interface AuthenticatedRequest extends Request {
   user?: IUser | null;
+  body: any;
 }
 
 interface CreateUserBody {

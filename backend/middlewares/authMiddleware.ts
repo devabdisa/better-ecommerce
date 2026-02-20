@@ -5,6 +5,8 @@ import asyncHandler from "./asyncHandler.js";
 
 interface AuthenticatedRequest extends Request {
   user?: IUser | null;
+  body: any;
+  cookies: any;
 }
 
 //  Protect routes
@@ -35,7 +37,6 @@ const authenticate = asyncHandler(
     }
   },
 );
-
 
 const authorizeAdmin = (
   req: AuthenticatedRequest,
