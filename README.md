@@ -1,6 +1,6 @@
 <div align="center">
   <img src="frontend/public/icon.jpg" alt="Logo" width="100"/>
-  <h1>🐼 Ethio Panda E-commerce Playground</h1>
+  <h1>Better E-commerce Playground</h1>
   
   <p>A full-stack, state-of-the-art e-commerce platform crafted with a seamless user interface and a robust backend. Integrated with advanced dashboards, role-based access control, and dynamic product management.</p>
 
