@@ -133,7 +133,7 @@ const ProductUpdate: FC = () => {
     );
 
   return (
-    <div className="ml-20 flex flex-col md:flex-row min-h-screen bg-background text-white">
+    <div className="md:ml-[5%] lg:ml-[4%] flex flex-col md:flex-row min-h-screen bg-background text-white">
       <AdminMenu />
       <div className="md:w-3/4 p-8 w-full">
         <h1 className="text-3xl font-bold mb-8 text-blue-500 border-b border-gray-700 pb-4">

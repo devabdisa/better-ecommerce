@@ -27,7 +27,7 @@ const Cart: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0c] text-white">
+    <div className="md:ml-[5%] lg:ml-[4%] min-h-screen bg-[#0a0a0c] text-white transition-all duration-300">
       <Meta title="Shopping Cart | Better Store" />
       <div className="max-w-350 mx-auto px-6 lg:px-12 py-16">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-white/5 pb-8 relative overflow-hidden">
@@ -35,7 +35,7 @@ const Cart: React.FC = () => {
             <span className="text-blue-500 font-bold uppercase tracking-[0.2em] text-[10px] mb-2 block animate-in fade-in slide-in-from-left duration-700">
               Your Selection
             </span>
-            <h1 className="text-5xl md:text-6xl font-black text-white uppercase tracking-tighter leading-tight animate-in fade-in slide-in-from-bottom duration-1000">
+            <h1 className="text-3xl md:text-6xl font-black text-white uppercase tracking-tighter leading-tight animate-in fade-in slide-in-from-bottom duration-1000">
               Shopping Cart
             </h1>
           </div>
@@ -69,9 +69,9 @@ const Cart: React.FC = () => {
               {cartItems.map((item: CartItem) => (
                 <div
                   key={item._id}
-                  className="flex items-center gap-6 p-6 bg-[#131316] rounded-4xl border border-white/5 hover:border-blue-500/20 transition-all duration-300 group"
+                  className="flex flex-col sm:flex-row items-center gap-6 p-4 sm:p-6 bg-[#131316] rounded-4xl border border-white/5 hover:border-blue-500/20 transition-all duration-300 group"
                 >
-                  <div className="w-32 h-32 rounded-2xl overflow-hidden shrink-0 bg-white/5 relative">
+                  <div className="w-full sm:w-32 h-48 sm:h-32 rounded-2xl overflow-hidden shrink-0 bg-white/5 relative">
                     <img
                       src={resolveImageUrl(item.image)}
                       alt={item.name}
@@ -79,8 +79,8 @@ const Cart: React.FC = () => {
                     />
                   </div>
 
-                  <div className="flex-1">
-                    <div className="flex justify-between items-start mb-2">
+                  <div className="flex-1 w-full">
+                    <div className="flex justify-between items-start mb-2 gap-4">
                       <Link
                         to={`/product/${item._id}`}
                         className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors line-clamp-1"

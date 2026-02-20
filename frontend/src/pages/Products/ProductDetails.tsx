@@ -85,7 +85,7 @@ const ProductDetails: FC = () => {
   if (error) {
     const apiError = error as ApiError;
     return (
-      <div className="ml-40 mt-20">
+      <div className="md:ml-[8%] mt-20 px-4">
         <Message variant="error">
           {apiError?.data?.message || apiError.error || "Something went wrong"}
         </Message>
@@ -101,8 +101,8 @@ const ProductDetails: FC = () => {
         title={`${product.name} | Better Store`}
         description={product.description}
       />
-      <div className="ml-20 pt-8 relative z-10">
-        <div className="flex flex-col lg:flex-row items-stretch gap-12 max-w-400 mx-auto px-6 lg:px-16 mt-8">
+      <div className="md:ml-[5%] lg:ml-[4%] pt-8 relative z-10">
+        <div className="flex flex-col lg:flex-row items-stretch gap-12 max-w-400 mx-auto px-4 md:px-10 mt-4 md:mt-8">
           <div className="lg:w-1/2 w-full animate-in fade-in slide-in-from-left duration-700">
             <Link
               to="/"
@@ -139,9 +139,9 @@ const ProductDetails: FC = () => {
           </div>
 
           <div className="flex flex-col flex-1 w-full lg:w-1/2 justify-center animate-in fade-in slide-in-from-right duration-700 delay-100">
-            <h2 className="text-5xl md:text-6xl font-black mb-6 text-white tracking-tighter leading-tight">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tighter leading-tight mb-4">
               {product.name}
-            </h2>
+            </h1>
 
             <div className="flex items-center gap-6 mb-8">
               <Ratings

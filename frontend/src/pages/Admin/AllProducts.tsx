@@ -18,12 +18,12 @@ const AllProducts: FC = () => {
   }
 
   if (isError) {
-    return <div className="ml-20 text-white p-8">Error loading products</div>;
+    return <div className="md:ml-[5%] lg:ml-[4%] text-white p-8">Error loading products</div>;
   }
 
   return (
     <>
-      <div className="ml-20 flex flex-col md:flex-row min-h-screen bg-background text-white">
+      <div className="md:ml-[5%] lg:ml-[4%] flex flex-col md:flex-row min-h-screen bg-background text-white">
         <AdminMenu />
 
         <div className="w-full p-8">

@@ -17,7 +17,7 @@ const OrderList: FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen pb-20 px-4 md:px-10 pt-24 lg:ml-[8%] transition-all duration-300 font-sans text-white">
+    <div className="min-h-screen pb-20 px-4 md:px-10 pt-24 md:ml-[5%] lg:ml-[8%] transition-all duration-300 font-sans text-white">
       <div className="max-w-7xl mx-auto">
         <AdminMenu />
 

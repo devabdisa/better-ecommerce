@@ -56,7 +56,7 @@ const PlaceOrder: FC = () => {
   const apiError = error as ApiError | undefined;
 
   return (
-    <div className="min-h-screen pb-20 px-4 md:px-10 pt-24 lg:ml-[8%] transition-all duration-300">
+    <div className="min-h-screen pb-20 px-4 md:px-10 pt-24 md:ml-[5%] lg:ml-[8%] transition-all duration-300">
       <div className="max-w-7xl mx-auto">
         <Link
           to="/shipping"

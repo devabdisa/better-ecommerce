@@ -44,7 +44,7 @@ const ProductCarousel: FC = () => {
           {products?.map((product: Product) => (
             <div
               key={product._id}
-              className="relative group w-full h-[500px] md:h-[600px] overflow-hidden"
+              className="relative group w-full h-[400px] md:h-[600px] overflow-hidden"
             >
               <div className="absolute inset-0 w-full h-full bg-[#0a0a0c]">
                 <img
@@ -56,7 +56,7 @@ const ProductCarousel: FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-transparent" />
               </div>
 
-              <div className="absolute inset-0 p-10 md:p-16 flex flex-col justify-end">
+              <div className="absolute inset-0 p-6 md:p-16 flex flex-col justify-end">
                 <div className="flex flex-col lg:flex-row justify-between items-end gap-10">
                   <div className="flex-1 space-y-6 max-w-2xl">
                     <div className="space-y-3">
@@ -66,7 +66,7 @@ const ProductCarousel: FC = () => {
                           Trending Now
                         </span>
                       </div>
-                      <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-[0.9] group-hover:text-primary transition-colors duration-500 font-sans">
+                      <h2 className="text-3xl md:text-7xl font-black text-white tracking-tighter leading-[0.9] group-hover:text-primary transition-colors duration-500 font-sans">
                         {product.name}
                       </h2>
                     </div>
@@ -97,7 +97,7 @@ const ProductCarousel: FC = () => {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-x-8 gap-y-4 p-8 bg-white/[0.03] backdrop-blur-xl rounded-[2rem] border border-white/5 shadow-2xl animate-in fade-in slide-in-from-right duration-1000">
+                  <div className="hidden lg:grid grid-cols-2 gap-x-8 gap-y-4 p-8 bg-white/[0.03] backdrop-blur-xl rounded-[2rem] border border-white/5 shadow-2xl animate-in fade-in slide-in-from-right duration-1000">
                     <div className="space-y-4">
                       <div className="space-y-1">
                         <span className="text-[8px] font-bold text-text-muted uppercase tracking-[0.2em] block">

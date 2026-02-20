@@ -50,7 +50,7 @@ const Profile: FC = () => {
   };
 
   return (
-    <div className="min-h-screen pb-20 px-4 pt-24 lg:ml-[8%] flex items-center justify-center transition-all duration-300">
+    <div className="min-h-screen pb-20 px-4 pt-24 md:ml-[5%] lg:ml-[8%] flex items-center justify-center transition-all duration-300">
       <div className="flex flex-col md:flex-row shadow-2xl rounded-[2.5rem] overflow-hidden max-w-4xl w-full glass-card border border-white/5">
         {/* Left Side: Illustration / Profile Info */}
         <div className="md:w-1/3 bg-linear-to-br from-blue-600 to-sky-800 p-8 flex flex-col items-center justify-center text-white">

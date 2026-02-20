@@ -22,6 +22,7 @@ const Shop: FC = () => {
 
   const categoriesQuery = useFetchCategoriesQuery();
   const [priceFilter, setPriceFilter] = useState("");
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   const filteredProductsQuery = useGetFilteredProductsQuery({
     checked,
@@ -67,14 +68,31 @@ const Shop: FC = () => {
   };
 
   return (
-    <div className="ml-20 min-h-screen bg-[#0a0a0c] text-white">
+    <div className="md:ml-[5%] lg:ml-[4%] min-h-screen bg-[#0a0a0c] text-white">
       <Meta
         title="Shop | Premium Collection"
         description="Browse our exclusive collection of high-quality products. Filter by category, brand, and price."
       />
       <div className="flex flex-col md:flex-row relative">
+        {/* Mobile Filter Toggle */}
+        <div className="md:hidden p-4 bg-[#131316] sticky top-0 z-40 border-b border-white/5 flex justify-between items-center">
+          <h2 className="text-sm font-black uppercase tracking-widest">
+            Filters
+          </h2>
+          <button
+            onClick={() => setShowMobileFilters(!showMobileFilters)}
+            className="px-4 py-2 bg-blue-600 rounded-lg text-xs font-bold uppercase tracking-widest"
+          >
+            {showMobileFilters ? "Close" : "Open"}
+          </button>
+        </div>
+
         {/* Sidebar Filters */}
-        <div className="md:w-[20%] p-6 bg-[#131316] border-r border-white/5 h-auto md:min-h-screen sticky top-0 overflow-y-auto">
+        <div
+          className={`${
+            showMobileFilters ? "flex" : "hidden"
+          } md:flex md:w-[25%] lg:w-[20%] p-6 bg-[#131316] border-r border-white/5 h-auto md:min-h-screen sticky top-16 md:top-0 overflow-y-auto z-30 flex-col`}
+        >
           <h2 className="text-sm font-black mb-6 text-white border-b border-white/10 pb-4 uppercase tracking-widest flex items-center justify-between">
             Filter by Category
             <span className="text-[10px] bg-blue-600 px-2 py-0.5 rounded text-white">
@@ -154,12 +172,12 @@ const Shop: FC = () => {
 
         {/* Product Grid */}
         <div className="md:w-[80%] p-8 bg-[#0a0a0c]">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-white/5 pb-8">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-12 border-b border-white/5 pb-8 gap-4">
             <div>
               <span className="text-blue-500 font-bold uppercase tracking-[0.2em] text-[10px] mb-2 block">
                 Browse Collection
               </span>
-              <h1 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter">
+              <h1 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter">
                 Shop Products
               </h1>
             </div>
