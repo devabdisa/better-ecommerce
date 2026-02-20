@@ -56,7 +56,7 @@ const Register: FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden font-sans">
-      <Meta title="Join Us | Ethio Panda" />
+      <Meta title="Join Us | Better Store" />
 
       <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch">
         {/* Decorative Side Content */}

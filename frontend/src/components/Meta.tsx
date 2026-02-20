@@ -7,7 +7,7 @@ interface MetaProps {
 }
 
 const Meta = ({
-  title = "Ethio Panda | Premium E-Commerce Experience",
+  title = "Better Store | Premium E-Commerce Experience",
   description = "Discover the best products with express delivery across Ethiopia. Premium quality and secure payments.",
   keywords = "ecommerce, shopping, ethiopia, electronics, fashion",
 }: MetaProps) => {

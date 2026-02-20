@@ -41,7 +41,7 @@ const Home: FC = () => {
               {
                 icon: FaShippingFast,
                 title: "Express Delivery",
-                desc: "Across Ethiopia",
+                desc: "Across the Region",
                 color: "text-blue-500",
               },
               {

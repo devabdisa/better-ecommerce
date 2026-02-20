@@ -27,7 +27,7 @@ const Cart: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#0a0a0c] text-white">
-      <Meta title="Shopping Cart | Ethio Panda" />
+      <Meta title="Shopping Cart | Better Store" />
       <div className="max-w-350 mx-auto px-6 lg:px-12 py-16">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-white/5 pb-8 relative overflow-hidden">
           <div className="relative z-10">

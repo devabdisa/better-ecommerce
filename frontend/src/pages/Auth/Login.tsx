@@ -37,7 +37,7 @@ const Login: FC = () => {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate(redirect);
-      toast.success("Welcome back to Ethio Panda!");
+      toast.success("Welcome back to Better Store!");
     } catch (err) {
       const error = err as ApiError;
       toast.error(
@@ -50,7 +50,7 @@ const Login: FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden font-sans">
-      <Meta title="Login | Ethio Panda" />
+      <Meta title="Login | Better Store" />
 
       <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch">
         <div className="glass-card rounded-[2.5rem] p-10 lg:p-16 border-white/5 shadow-2xl space-y-10 animate-in fade-in slide-in-from-left duration-1000">
@@ -120,7 +120,7 @@ const Login: FC = () => {
           </form>
 
           <p className="text-center text-text-muted text-xs font-bold uppercase tracking-widest pt-6 border-t border-white/5">
-            New to Ethio Panda?{" "}
+            New to Better Store?{" "}
             <Link
               to={redirect ? `/register?redirect=${redirect}` : "/register"}
               className="text-primary hover:text-white transition-colors ml-2 underline underline-offset-4"

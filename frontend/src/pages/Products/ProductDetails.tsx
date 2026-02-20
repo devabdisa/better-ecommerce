@@ -97,7 +97,7 @@ const ProductDetails: FC = () => {
   return (
     <div className="min-h-screen bg-[#0a0a0c] text-white pb-20 overflow-x-hidden">
       <Meta
-        title={`${product.name} | Ethio Panda`}
+        title={`${product.name} | Better Store`}
         description={product.description}
       />
       <div className="ml-20 pt-8 relative z-10">
