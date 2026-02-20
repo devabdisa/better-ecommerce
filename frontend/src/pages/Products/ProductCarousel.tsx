@@ -84,7 +84,7 @@ const ProductCarousel: FC = () => {
                       </Link>
 
                       <div className="flex items-baseline gap-3">
-                        <span className="text-white font-black text-3xl italic font-sans">
+                        <span className="text-white font-black text-3xl  font-sans">
                           ${product.price}
                         </span>
                         {product.price > 100 && (

@@ -91,7 +91,7 @@ const Home: FC = () => {
                   Discover
                 </span>
                 <h2 className="text-3xl font-bold text-white tracking-tight">
-                  Shop by <span className="text-primary italic">Category</span>
+                  Shop by <span className="text-primary ">Category</span>
                 </h2>
               </div>
               <Link
@@ -143,7 +143,7 @@ const Home: FC = () => {
                   ) : (
                     <>
                       Exclusive{" "}
-                      <span className="text-primary italic">Stock</span>
+                      <span className="text-primary ">Stock</span>
                     </>
                   )}
                 </h1>

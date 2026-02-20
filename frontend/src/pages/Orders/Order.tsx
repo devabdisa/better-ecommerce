@@ -154,7 +154,7 @@ const Order: FC = () => {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
               <div className="space-y-2">
                 <div className="flex items-center gap-3">
-                  <div className="px-5 py-2 rounded-2xl bg-white/5 border border-white/10 text-xs font-black text-blue-500 uppercase tracking-[0.2em] italic">
+                  <div className="px-5 py-2 rounded-2xl bg-white/5 border border-white/10 text-xs font-black text-blue-500 uppercase tracking-[0.2em] ">
                     Manifest #{order._id.slice(-8).toUpperCase()}
                   </div>
                   {order.isPaid ? (
@@ -167,8 +167,8 @@ const Order: FC = () => {
                     </div>
                   )}
                 </div>
-                <h1 className="text-4xl md:text-5xl font-black text-white italic tracking-tighter uppercase mt-4">
-                  Order <span className="text-blue-500 italic">Tracking</span>
+                <h1 className="text-4xl md:text-5xl font-black text-white  tracking-tighter uppercase mt-4">
+                  Order <span className="text-blue-500 ">Tracking</span>
                 </h1>
               </div>
 
@@ -177,7 +177,7 @@ const Order: FC = () => {
                   <span className="text-[10px] font-black uppercase tracking-widest text-gray-500 block">
                     Digital Method
                   </span>
-                  <span className="text-white font-bold italic">
+                  <span className="text-white font-bold ">
                     {order.paymentMethod}
                   </span>
                 </div>
@@ -206,7 +206,7 @@ const Order: FC = () => {
                           <span className="text-[10px] font-black uppercase tracking-widest text-gray-500 block">
                             Name
                           </span>
-                          <span className="text-white font-bold italic">
+                          <span className="text-white font-bold ">
                             {order.user.username}
                           </span>
                         </div>
@@ -217,7 +217,7 @@ const Order: FC = () => {
                           <span className="text-[10px] font-black uppercase tracking-widest text-gray-500 block">
                             Email
                           </span>
-                          <span className="text-white font-bold italic">
+                          <span className="text-white font-bold ">
                             {order.user.email}
                           </span>
                         </div>
@@ -235,7 +235,7 @@ const Order: FC = () => {
                     <div className="p-5 bg-white/5 rounded-2xl border border-white/5 space-y-4">
                       <div className="flex gap-3 text-gray-400">
                         <FaMapMarkerAlt className="shrink-0 mt-1" size={14} />
-                        <p className="text-white font-bold italic leading-relaxed">
+                        <p className="text-white font-bold  leading-relaxed">
                           {order.shippingAddress.address}
                           <br />
                           {order.shippingAddress.city},{" "}
@@ -252,7 +252,7 @@ const Order: FC = () => {
                           <span className="text-[10px] font-black text-green-500 uppercase tracking-widest block">
                             Logistics Finalized
                           </span>
-                          <span className="text-xs text-white font-bold italic">
+                          <span className="text-xs text-white font-bold ">
                             {new Date(order.deliveredAt!).toLocaleString()}
                           </span>
                         </div>
@@ -269,7 +269,7 @@ const Order: FC = () => {
 
                 {/* Items Section */}
                 <div className="glass-card rounded-[2.5rem] p-8 border-white/5 shadow-2xl overflow-hidden">
-                  <h3 className="text-sm font-black text-gray-400 uppercase tracking-[0.3em] mb-8 italic">
+                  <h3 className="text-sm font-black text-gray-400 uppercase tracking-[0.3em] mb-8 ">
                     Product Breakdown
                   </h3>
                   <div className="space-y-4">
@@ -288,7 +288,7 @@ const Order: FC = () => {
                         <div className="flex-1 text-center sm:text-left">
                           <Link
                             to={`/product/${item.product}`}
-                            className="text-xl font-black text-white hover:text-blue-400 transition-colors italic line-clamp-1"
+                            className="text-xl font-black text-white hover:text-blue-400 transition-colors  line-clamp-1"
                           >
                             {item.name}
                           </Link>
@@ -303,7 +303,7 @@ const Order: FC = () => {
                             </span>
                           </div>
                         </div>
-                        <div className="text-2xl font-black text-white italic">
+                        <div className="text-2xl font-black text-white ">
                           ${(item.qty * item.price).toFixed(2)}
                         </div>
                       </div>
@@ -315,9 +315,9 @@ const Order: FC = () => {
               {/* Right Side: Summary Card */}
               <div className="lg:col-span-4">
                 <div className="sticky top-24 glass-card rounded-[2.5rem] p-8 border-white/5 shadow-2xl overflow-hidden">
-                  <h2 className="text-3xl font-black text-white mb-10 italic uppercase tracking-tight">
+                  <h2 className="text-3xl font-black text-white mb-10  uppercase tracking-tight">
                     Financial{" "}
-                    <span className="text-blue-500 italic block text-lg tracking-[0.3em] font-bold mt-1">
+                    <span className="text-blue-500  block text-lg tracking-[0.3em] font-bold mt-1">
                       Summary
                     </span>
                   </h2>
@@ -327,7 +327,7 @@ const Order: FC = () => {
                       <span className="text-xs font-black uppercase tracking-widest text-gray-500">
                         Gross Items
                       </span>
-                      <span className="text-xl font-bold text-white italic tracking-tight">
+                      <span className="text-xl font-bold text-white  tracking-tight">
                         ${order.itemsPrice}
                       </span>
                     </div>
@@ -335,7 +335,7 @@ const Order: FC = () => {
                       <span className="text-xs font-black uppercase tracking-widest text-gray-500">
                         Logistics
                       </span>
-                      <span className="text-xl font-bold text-white italic tracking-tight">
+                      <span className="text-xl font-bold text-white  tracking-tight">
                         ${order.shippingPrice}
                       </span>
                     </div>
@@ -343,7 +343,7 @@ const Order: FC = () => {
                       <span className="text-xs font-black uppercase tracking-widest text-gray-500">
                         Fiscal Tax
                       </span>
-                      <span className="text-xl font-bold text-white italic tracking-tight">
+                      <span className="text-xl font-bold text-white  tracking-tight">
                         ${order.taxPrice}
                       </span>
                     </div>
@@ -352,7 +352,7 @@ const Order: FC = () => {
                       <span className="text-sm font-black uppercase tracking-widest text-blue-400">
                         Net Total
                       </span>
-                      <span className="text-4xl font-black text-white tracking-tighter italic">
+                      <span className="text-4xl font-black text-white tracking-tighter ">
                         ${order.totalPrice}
                       </span>
                     </div>
@@ -472,7 +472,7 @@ const Order: FC = () => {
                       <span className="text-[10px] font-black text-green-500 uppercase tracking-widest block mb-1">
                         Authorization Complete
                       </span>
-                      <span className="text-xs text-white font-bold italic">
+                      <span className="text-xs text-white font-bold ">
                         {new Date(order.paidAt!).toLocaleString()}
                       </span>
                       {order.paymentResult && (

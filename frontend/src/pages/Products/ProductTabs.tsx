@@ -176,7 +176,7 @@ const ProductTabs: FC<ProductTabsProps> = ({
                   <div className="mb-4">
                     <Ratings value={review.rating} />
                   </div>
-                  <p className="text-gray-400 leading-relaxed italic">
+                  <p className="text-gray-400 leading-relaxed ">
                     "{review.comment}"
                   </p>
                 </div>

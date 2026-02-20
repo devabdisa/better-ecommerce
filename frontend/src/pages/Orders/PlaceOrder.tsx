@@ -151,7 +151,7 @@ const PlaceOrder: FC = () => {
                         </Link>
                         <p className="text-text-muted font-bold text-[10px] uppercase tracking-widest mt-1">
                           Price:{" "}
-                          <span className="text-white italic">
+                          <span className="text-white ">
                             ${item.price.toFixed(2)}
                           </span>
                         </p>
