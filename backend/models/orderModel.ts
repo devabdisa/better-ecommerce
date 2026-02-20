@@ -16,10 +16,11 @@ interface IShippingAddress {
 }
 
 interface IPaymentResult {
-  id: string;
+  tx_ref: string;
+  chapa_ref: string;
   status: string;
-  update_time: string;
-  email_address: string;
+  payment_method: string;
+  paid_at: string;
 }
 
 export interface IOrder extends Document {
@@ -28,6 +29,7 @@ export interface IOrder extends Document {
   shippingAddress: IShippingAddress;
   paymentMethod: string;
   paymentResult: IPaymentResult;
+  chapaTxRef: string;
   itemsPrice: number;
   taxPrice: number;
   shippingPrice: number;
@@ -70,10 +72,18 @@ const orderSchema = new mongoose.Schema<IOrder>(
     },
 
     paymentResult: {
-      id: { type: String },
+      tx_ref: { type: String },
+      chapa_ref: { type: String },
       status: { type: String },
-      update_time: { type: String },
-      email_address: { type: String },
+      payment_method: { type: String },
+      paid_at: { type: String },
+    },
+
+    // Unique Chapa transaction reference for idempotency
+    chapaTxRef: {
+      type: String,
+      unique: true,
+      sparse: true, // Allow null values while maintaining uniqueness
     },
 
     itemsPrice: {

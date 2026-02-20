@@ -165,13 +165,20 @@ const markOrderAsPaid = async (req: Request, res: Response) => {
     const order = await Order.findById(req.params.id);
 
     if (order) {
+      // Idempotency: Don't reprocess if already paid
+      if (order.isPaid) {
+        res.status(200).json(order);
+        return;
+      }
+
       order.isPaid = true;
       order.paidAt = new Date();
       order.paymentResult = {
-        id: req.body.id,
-        status: req.body.status,
-        update_time: req.body.update_time,
-        email_address: req.body.payer.email_address,
+        tx_ref: req.body.tx_ref || "",
+        chapa_ref: req.body.chapa_ref || "",
+        status: req.body.status || "success",
+        payment_method: req.body.payment_method || "chapa",
+        paid_at: req.body.paid_at || new Date().toISOString(),
       };
 
       const updateOrder = await order.save();
