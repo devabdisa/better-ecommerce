@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useGetTopProductsQuery } from "../../redux/api/productApiSlice";
 import Message from "../../components/Message";
 import Slider from "react-slick";
@@ -6,7 +7,7 @@ const SliderComponent = Slider.default || Slider;
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import moment from "moment";
-import { FaBox, FaClock, FaStar, FaStore } from "react-icons/fa";
+import { FaBox, FaClock, FaStar, FaStore, FaArrowRight } from "react-icons/fa";
 import type { FC } from "react";
 import type { Product, ApiError } from "../../types";
 
@@ -21,8 +22,9 @@ const ProductCarousel: FC = () => {
     slidesToScroll: 1,
     arrows: true,
     autoplay: true,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 5000,
     cssEase: "cubic-bezier(0.87, 0.03, 0.4, 0.9)",
+    pauseOnHover: true,
   };
 
   return (
@@ -36,74 +38,106 @@ const ProductCarousel: FC = () => {
       ) : (
         <SliderComponent
           {...settings}
-          className="xl:w-200 lg:w-180 md:w-160 sm:w-140 mx-auto rounded-2xl overflow-hidden glass shadow-2xl"
+          className="mx-auto rounded-[2rem] overflow-hidden glass-card shadow-2xl relative"
         >
           {products?.map((product: Product) => (
             <div
               key={product._id}
-              className="relative group w-full h-125 md:h-150"
+              className="relative group w-full h-[500px] md:h-[600px] overflow-hidden"
             >
               <div className="absolute inset-0 w-full h-full bg-[#0a0a0c]">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700"
+                  className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all duration-1000 transform group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-linear-to-r from-black/90 via-black/40 to-transparent" />
-                <div className="absolute inset-0 bg-linear-to-t from-black/90 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-transparent" />
               </div>
 
-              <div className="absolute bottom-0 left-0 w-full p-10 flex flex-col md:flex-row justify-between items-end gap-8">
-                <div className="flex-1 space-y-4">
-                  <div>
-                    <span className="text-blue-500 font-bold uppercase tracking-[0.2em] text-[10px] mb-2 block">
-                      Featured Product
-                    </span>
-                    <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter leading-none group-hover:text-blue-400 transition-colors duration-500">
-                      {product.name}
-                    </h2>
-                  </div>
-                  <div className="flex items-baseline gap-4">
-                    <p className="text-blue-400 font-black text-3xl">
-                      ${product.price}
+              <div className="absolute inset-0 p-10 md:p-16 flex flex-col justify-end">
+                <div className="flex flex-col lg:flex-row justify-between items-end gap-10">
+                  <div className="flex-1 space-y-6 max-w-2xl">
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-[2px] bg-primary"></div>
+                        <span className="text-primary font-bold uppercase tracking-[0.3em] text-[10px] block">
+                          Trending Now
+                        </span>
+                      </div>
+                      <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-[0.9] group-hover:text-primary transition-colors duration-500 font-sans">
+                        {product.name}
+                      </h2>
+                    </div>
+
+                    <p className="text-text-muted line-clamp-2 text-lg font-medium leading-relaxed max-w-xl">
+                      {product.description}
                     </p>
-                    {product.price > 100 && (
-                      <p className="text-gray-600 line-through text-lg font-medium">
-                        ${(product.price * 1.2).toFixed(0)}
-                      </p>
-                    )}
-                  </div>
-                  <p className="text-gray-400 line-clamp-2 max-w-xl text-lg font-medium leading-relaxed">
-                    {product.description}
-                  </p>
-                </div>
 
-                <div className="grid grid-cols-2 gap-x-10 gap-y-4 p-6 bg-white/3 backdrop-blur-md rounded-2xl border border-white/5">
-                  <div className="space-y-3">
-                    <h1 className="flex items-center text-xs font-bold text-gray-400 uppercase tracking-widest">
-                      <FaStore className="mr-2 text-blue-500/70" />
-                      {product.brand}
-                    </h1>
-                    <h1 className="flex items-center text-xs font-bold text-gray-400 uppercase tracking-widest">
-                      <FaClock className="mr-2 text-blue-500/70" />
-                      {moment(product.createdAt).fromNow()}
-                    </h1>
+                    <div className="flex flex-wrap items-center gap-6">
+                      <Link
+                        to={`/product/${product._id}`}
+                        className="px-10 py-5 bg-primary text-white rounded-2xl font-bold uppercase tracking-[0.2em] text-xs flex items-center gap-3 hover:bg-primary-dark transition-all shadow-xl shadow-primary/20 transform hover:scale-105 active:scale-95 group/btn"
+                      >
+                        Explore Collection
+                        <FaArrowRight className="group-hover/btn:translate-x-1 transition-transform" />
+                      </Link>
+
+                      <div className="flex items-baseline gap-3">
+                        <span className="text-white font-black text-3xl italic font-sans">
+                          ${product.price}
+                        </span>
+                        {product.price > 100 && (
+                          <span className="text-text-muted line-through text-sm font-bold">
+                            ${(product.price * 1.2).toFixed(0)}
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="space-y-3 border-l border-white/10 pl-10">
-                    <h1 className="flex items-center text-xs font-bold text-gray-400 uppercase tracking-widest">
-                      <FaStar className="mr-2 text-yellow-500/70" />
-                      {product.rating.toFixed(1)}
-                    </h1>
-                    <h1 className="flex items-center text-xs font-bold text-gray-400 uppercase tracking-widest">
-                      <FaBox className="mr-2 text-blue-500/70" />
-                      {product.countInStock > 0 ? "In Stock" : "Sold Out"}
-                    </h1>
-                    {/* <h1 className="flex items-center">
-                      <FaShoppingCart className="mr-2 text-blue-400" />{" "}
-                      <span className="text-gray-400 mr-1">Quantity:</span>{" "}
-                      {product.quantity}
-                    </h1> */}
+                  <div className="grid grid-cols-2 gap-x-8 gap-y-4 p-8 bg-white/[0.03] backdrop-blur-xl rounded-[2rem] border border-white/5 shadow-2xl animate-in fade-in slide-in-from-right duration-1000">
+                    <div className="space-y-4">
+                      <div className="space-y-1">
+                        <span className="text-[8px] font-bold text-text-muted uppercase tracking-[0.2em] block">
+                          Brand
+                        </span>
+                        <h4 className="flex items-center text-[10px] font-bold text-white uppercase tracking-widest">
+                          <FaStore className="mr-2 text-primary" size={12} />
+                          {product.brand}
+                        </h4>
+                      </div>
+                      <div className="space-y-1">
+                        <span className="text-[8px] font-bold text-text-muted uppercase tracking-[0.2em] block">
+                          Arrival
+                        </span>
+                        <h4 className="flex items-center text-[10px] font-bold text-white uppercase tracking-widest">
+                          <FaClock className="mr-2 text-primary" size={12} />
+                          {moment(product.createdAt).fromNow()}
+                        </h4>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4 border-l border-white/10 pl-8">
+                      <div className="space-y-1">
+                        <span className="text-[8px] font-bold text-text-muted uppercase tracking-[0.2em] block">
+                          Rating
+                        </span>
+                        <h4 className="flex items-center text-[10px] font-bold text-white uppercase tracking-widest">
+                          <FaStar className="mr-2 text-yellow-500" size={12} />
+                          {product.rating.toFixed(1)} / 5.0
+                        </h4>
+                      </div>
+                      <div className="space-y-1">
+                        <span className="text-[8px] font-bold text-text-muted uppercase tracking-[0.2em] block">
+                          Availability
+                        </span>
+                        <h4 className="flex items-center text-[10px] font-bold text-white uppercase tracking-widest">
+                          <FaBox className="mr-2 text-green-500" size={12} />
+                          {product.countInStock > 0 ? "In Stock" : "Limited"}
+                        </h4>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

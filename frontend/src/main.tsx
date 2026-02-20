@@ -20,6 +20,12 @@ import Favorites from "./pages/Products/Favorites";
 import ProductDetails from "./pages/Products/ProductDetails";
 import Cart from "./pages/Cart";
 import Shop from "./pages/Shop";
+import Shipping from "./pages/Orders/Shipping";
+import PlaceOrder from "./pages/Orders/PlaceOrder";
+import Order from "./pages/Orders/Order";
+
+import UserOrder from "./pages/Orders/UserOrder";
+import OrderList from "./pages/Admin/OrderList";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,6 +43,10 @@ const router = createBrowserRouter(
       {/* Registered users */}
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<Profile />} />
+        <Route path="/shipping" element={<Shipping />} />
+        <Route path="/placeorder" element={<PlaceOrder />} />
+        <Route path="/order/:id" element={<Order />} />
+        <Route path="/user-orders" element={<UserOrder />} />
       </Route>
 
       <Route path="/admin" element={<AdminRoute />}>
@@ -44,6 +54,7 @@ const router = createBrowserRouter(
         <Route path="categorylist" element={<CategoryList />} />
         <Route path="productlist" element={<ProductList />} />
         <Route path="allproductslist" element={<AllProducts />} />
+        <Route path="orderlist" element={<OrderList />} />
         <Route path="productlist/:pageNumber" element={<ProductList />} />
         <Route path="product/update/:_id" element={<ProductUpdate />} />
       </Route>

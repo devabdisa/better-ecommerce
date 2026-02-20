@@ -9,7 +9,7 @@ const initialState: CartState = storedCart
   : {
       cartItems: [],
       shippingAddress: { address: "", city: "", postalCode: "", country: "" },
-      paymentMethod: "PayPal",
+      paymentMethod: "Chapa",
       itemsPrice: "0.00",
       shippingPrice: "0.00",
       taxPrice: "0.00",
@@ -62,7 +62,7 @@ const cartSlice = createSlice({
         postalCode: "",
         country: "",
       };
-      state.paymentMethod = "PayPal";
+      state.paymentMethod = "Chapa";
       state.itemsPrice = "0.00";
       state.shippingPrice = "0.00";
       state.taxPrice = "0.00";

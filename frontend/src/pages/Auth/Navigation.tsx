@@ -5,6 +5,7 @@ import {
   AiOutlineLogin,
   AiOutlineUserAdd,
   AiOutlineShoppingCart,
+  AiOutlineInbox,
 } from "react-icons/ai";
 import { FaHeart } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
@@ -136,6 +137,23 @@ const Navigation: FC = () => {
             FAVORITES
           </span>
         </Link>
+
+        {userInfo && (
+          <Link
+            to="/user-orders"
+            className="flex items-center transition-all transform hover:translate-x-2 p-3 rounded-xl hover:bg-[#27272a] group/item relative"
+          >
+            <div className="flex items-center relative">
+              <AiOutlineInbox
+                className="shrink-0 mr-2 text-gray-400 group-hover/item:text-blue-500 transition-colors"
+                size={26}
+              />
+            </div>
+            <span className="hidden nav-item-name font-medium tracking-wide text-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+              MY ORDERS
+            </span>
+          </Link>
+        )}
       </div>
 
       <div className="relative mb-5" ref={dropdownRef}>
@@ -228,6 +246,12 @@ const Navigation: FC = () => {
                 className="block px-3 py-2 rounded-lg hover:bg-[#27272a] transition-colors text-sm font-medium"
               >
                 Profile
+              </Link>
+              <Link
+                to="/user-orders"
+                className="block px-3 py-2 rounded-lg hover:bg-[#27272a] transition-colors text-sm font-medium"
+              >
+                My Orders
               </Link>
               <button
                 onClick={logoutHandler}
