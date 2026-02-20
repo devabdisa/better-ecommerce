@@ -35,7 +35,7 @@ const SmallProduct: FC<SmallProductProps> = ({ product }) => {
             {product.name}
           </h2>
           <div className="flex items-center justify-between">
-            <span className="text-sm font-black text-white italic">
+            <span className="text-sm font-black text-white ">
               ${product.price}
             </span>
             <div className="w-6 h-6 rounded-lg bg-white/5 flex items-center justify-center text-text-muted group-hover/text:bg-primary group-hover/text:text-white transition-all">

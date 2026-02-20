@@ -25,7 +25,7 @@ const UserOrder: FC = () => {
               Order History
             </div>
             <h1 className="text-4xl font-bold tracking-tight">
-              My <span className="text-primary italic">Orders</span>
+              My <span className="text-primary ">Orders</span>
             </h1>
           </div>
 

@@ -35,7 +35,7 @@ const OrderList: FC = () => {
               Order Management
             </div>
             <h1 className="text-4xl font-bold tracking-tight">
-              All <span className="text-primary italic">Orders</span>
+              All <span className="text-primary ">Orders</span>
             </h1>
           </div>
 
@@ -100,7 +100,7 @@ const OrderList: FC = () => {
                           {order.user ? (
                             order.user.username
                           ) : (
-                            <span className="text-red-500 italic">
+                            <span className="text-red-500 ">
                               Deleted User
                             </span>
                           )}

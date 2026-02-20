@@ -51,7 +51,7 @@ const Product: FC<ProductProps> = ({ product }) => {
         </div>
 
         <div className="flex items-center justify-between mt-auto pt-6 border-t border-white/5">
-          <span className="text-2xl font-black text-white tracking-tighter italic">
+          <span className="text-2xl font-black text-white tracking-tighter ">
             ${product.price}
           </span>
           <Link
