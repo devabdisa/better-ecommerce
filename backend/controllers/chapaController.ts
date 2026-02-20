@@ -13,9 +13,11 @@ const CHAPA_BASE_URL = "https://api.chapa.co/v1";
  * "EP" = Ethio Panda prefix for easy identification in Chapa dashboard.
  */
 function generateTxRef(orderId: string): string {
-  const randomPart = crypto.randomBytes(6).toString("hex");
+  // Keep under 50 chars: EP-{8 chars}-{8 hex}-{13 digits} = ~33 chars
+  const shortId = orderId.slice(-8);
+  const randomPart = crypto.randomBytes(4).toString("hex");
   const timestamp = Date.now();
-  return `EP-${orderId}-${randomPart}-${timestamp}`;
+  return `EP-${shortId}-${randomPart}-${timestamp}`;
 }
 
 /**
@@ -63,51 +65,69 @@ const initializeChapaPayment = async (req: Request, res: Response) => {
       return;
     }
 
-    // Idempotency: If a tx_ref already exists and payment is pending,
-    // return the existing checkout URL by re-initializing with the same tx_ref.
-    // This prevents creating duplicate transactions.
-    let txRef = order.chapaTxRef;
-    if (!txRef) {
-      txRef = generateTxRef(order._id.toString());
-      order.chapaTxRef = txRef;
-      await order.save();
-    }
+    // Always generate a fresh tx_ref for each payment attempt.
+    // Chapa permanently reserves tx_refs after the first API call,
+    // even if the user never completes the payment.
+    let txRef = generateTxRef(order._id.toString());
+    order.chapaTxRef = txRef;
+    await order.save();
 
     // Extract user info — the populated user object
     const user = order.user as any;
 
-    // Build the Chapa initialization payload
-    const payload = {
-      amount: order.totalPrice.toString(),
-      currency: "ETB",
-      email: user.email || "",
-      first_name: user.username || "Customer",
-      last_name: "",
-      tx_ref: txRef,
-      callback_url: `${req.protocol}://${req.get("host")}/api/orders/chapa/callback`,
-      return_url:
-        req.body.return_url ||
-        `${req.protocol}://${req.get("host")}/order/${order._id}`,
-      customization: {
-        title: "Ethio Panda Store",
-        description: `Payment for order #${order._id}`,
-      },
-      meta: {
-        order_id: order._id.toString(),
-      },
+    // Helper: build payload and call Chapa API
+    const callChapaInit = async (ref: string) => {
+      const payload = {
+        amount: order.totalPrice.toString(),
+        currency: "ETB",
+        email: user.email || "",
+        first_name: user.username || "Customer",
+        last_name: "",
+        tx_ref: ref,
+        callback_url: `${req.protocol}://${req.get("host")}/api/orders/chapa/callback`,
+        return_url:
+          req.body.return_url ||
+          `${req.protocol}://${req.get("host")}/order/${order._id}`,
+        customization: {
+          title: "Ethio Panda",
+          description: `Order ${order._id}`,
+        },
+        meta: {
+          order_id: order._id.toString(),
+        },
+      };
+
+      const response = await fetch(`${CHAPA_BASE_URL}/transaction/initialize`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${secretKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      return { response, payload };
     };
 
     // Call Chapa Initialize API
-    const response = await fetch(`${CHAPA_BASE_URL}/transaction/initialize`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${secretKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
+    let { response, payload } = await callChapaInit(txRef);
+    let data = await response.json();
 
-    const data = await response.json();
+    // If tx_ref collision (rare edge case), generate a new one and retry once
+    if (
+      data.status === "failed" &&
+      typeof data.message === "string" &&
+      data.message.toLowerCase().includes("reference has been used")
+    ) {
+      txRef = generateTxRef(order._id.toString());
+      order.chapaTxRef = txRef;
+      await order.save();
+
+      const retry = await callChapaInit(txRef);
+      response = retry.response;
+      payload = retry.payload;
+      data = await response.json();
+    }
 
     if (data.status === "success") {
       res.json({
@@ -116,9 +136,14 @@ const initializeChapaPayment = async (req: Request, res: Response) => {
         tx_ref: txRef,
       });
     } else {
+      // Log the full Chapa error for debugging
+      console.error("Chapa API rejected initialization:");
+      console.error("  HTTP Status:", response.status);
+      console.error("  Response:", JSON.stringify(data, null, 2));
+      console.error("  Payload sent:", JSON.stringify(payload, null, 2));
       res.status(400).json({
-        message: "Failed to initialize payment",
-        error: data.message || data,
+        message: data.message || "Failed to initialize payment",
+        error: data.data || data,
       });
     }
   } catch (error: any) {

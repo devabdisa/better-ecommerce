@@ -147,3 +147,101 @@ export interface ApiError {
 
 /** Variant options for the Message component */
 export type MessageVariant = "success" | "error" | "info";
+
+// ==========================================
+// Order-related types
+// ==========================================
+
+/** A single item inside an order */
+export interface OrderItem {
+  name: string;
+  qty: number;
+  image: string;
+  price: number;
+  product: string; // product _id reference
+}
+
+/** Chapa payment result stored on the order */
+export interface PaymentResult {
+  tx_ref: string;
+  chapa_ref: string;
+  status: string;
+  payment_method: string;
+  paid_at: string;
+}
+
+/** Populated user inside an order response */
+export interface OrderUser {
+  _id: string;
+  username: string;
+  email: string;
+}
+
+/** Full order object returned from the API */
+export interface Order {
+  _id: string;
+  user: OrderUser;
+  orderItems: OrderItem[];
+  shippingAddress: ShippingAddress;
+  paymentMethod: string;
+  paymentResult?: PaymentResult;
+  chapaTxRef?: string;
+  itemsPrice: number;
+  taxPrice: number;
+  shippingPrice: number;
+  totalPrice: number;
+  isPaid: boolean;
+  paidAt?: string;
+  isDelivered: boolean;
+  deliveredAt?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/** Body sent when creating a new order */
+export interface CreateOrderRequest {
+  orderItems: { _id: string; qty: number }[];
+  shippingAddress: ShippingAddress;
+  paymentMethod: string;
+  itemsPrice: string | number;
+  shippingPrice: string | number;
+  taxPrice: string | number;
+  totalPrice: string | number;
+}
+
+/** Response from Chapa payment initialization */
+export interface ChapaInitResponse {
+  message: string;
+  checkout_url: string;
+  tx_ref: string;
+}
+
+/** Request body for initializing Chapa payment */
+export interface ChapaInitRequest {
+  orderId: string;
+  return_url?: string;
+}
+
+/** Response from Chapa payment verification */
+export interface ChapaVerifyResponse {
+  message: string;
+  isPaid: boolean;
+  status?: string;
+  order?: Order;
+}
+
+/** /total-orders response */
+export interface TotalOrdersResponse {
+  totalOrders: number;
+}
+
+/** /total-sales response */
+export interface TotalSalesResponse {
+  totalSales: number;
+}
+
+/** Single entry from /total-sales-by-date */
+export interface SalesByDateItem {
+  _id: string; // date string, e.g. "2026-02-20"
+  totalSales: number;
+}

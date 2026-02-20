@@ -7,20 +7,34 @@ interface MessageProps {
 }
 
 const Message: FC<MessageProps> = ({ variant = "info", children }) => {
-  const getVariantClass = () => {
+  const getStyles = () => {
     switch (variant) {
       case "success":
-        return "bg-green-100 text-green-800 border-green-200";
+        return {
+          bg: "bg-green-500/10",
+          border: "border-green-500/20",
+          text: "text-green-500",
+        };
       case "error":
-        return "bg-red-100 text-red-800 border-red-200";
+        return {
+          bg: "bg-red-500/10",
+          border: "border-red-500/20",
+          text: "text-red-500",
+        };
       default:
-        return "bg-blue-100 text-blue-800 border-blue-200";
+        return {
+          bg: "bg-primary/10",
+          border: "border-primary/20",
+          text: "text-primary",
+        };
     }
   };
 
+  const styles = getStyles();
+
   return (
     <div
-      className={`p-4 rounded border ${getVariantClass()} transition-opacity duration-300`}
+      className={`p-5 rounded-2xl border backdrop-blur-md ${styles.bg} ${styles.border} ${styles.text} font-bold text-xs uppercase tracking-widest flex items-center justify-center text-center`}
     >
       {children}
     </div>
