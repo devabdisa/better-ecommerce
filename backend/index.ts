@@ -20,6 +20,9 @@ connectDB();
 
 const app = express();
 
+// Trust proxy for secure cookies (Render handles SSL at the load balancer)
+app.set("trust proxy", 1);
+
 app.use(
   cors({
     origin: process.env.FRONTEND_URL || "http://localhost:5173",
