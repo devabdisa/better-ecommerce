@@ -40,4 +40,9 @@ app.use("/api/upload", uploadRoutes);
 
 app.use("/api/orders", orderRoutes);
 
+// Health check route for cron-job.org to ping and keep the server awake
+app.get("/ping", (req, res) => {
+  res.status(200).send("Server is awake");
+});
+
 app.listen(port, () => console.log(`Server running on port: ${port}`));
