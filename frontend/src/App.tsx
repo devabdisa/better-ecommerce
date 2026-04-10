@@ -8,6 +8,7 @@ import { setFavorites } from "./redux/features/favorites/favoriteSlice";
 import { getFavoritesFromLocalStorage } from "./utils/localStorage";
 import ScrollToTop from "./components/ScrollToTop";
 import Background from "./components/Background";
+import MaintenanceBanner from "./components/MaintenanceBanner";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -19,11 +20,12 @@ const App = () => {
 
   return (
     <div className="relative min-h-screen">
+      <MaintenanceBanner />
       <ToastContainer theme="dark" position="top-right" />
       <ScrollToTop />
       <Background />
       <Navigation />
-      <main className="transition-all duration-300">
+      <main className="transition-all duration-300" style={{ paddingTop: "41px" }}>
         <Outlet />
       </main>
     </div>
